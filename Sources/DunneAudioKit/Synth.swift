@@ -3,6 +3,7 @@
 
 import AVFoundation
 import AudioKit
+import AudioKitEX
 import CDunneAudioKit
 
 /// Synth

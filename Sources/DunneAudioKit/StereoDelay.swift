@@ -2,6 +2,7 @@
 
 import AVFoundation
 import AudioKit
+import AudioKitEX
 import CDunneAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
