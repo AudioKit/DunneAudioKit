@@ -1,6 +1,5 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import Foundation
 import AudioKit
 @testable import DunneAudioKit
 import AVFoundation
