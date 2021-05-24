@@ -1,4 +1,4 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 //
 // Attack, Hold, Decay, Sustain, Release-hold, Release envelope
 // 1) Attack fades in from 0 for attackSamples
