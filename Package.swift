@@ -16,7 +16,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/AudioKit/Soundpipe", .branch("main")),
+        .package(url: "https://github.com/AudioKit/KissFFT", .branch("main")),
         .package(url: "https://github.com/AudioKit/AudioKit", .branch("develop")),
 
     ],
@@ -28,7 +28,7 @@ let package = Package(
             dependencies: ["AudioKit", "CDunneAudioKit"]),
         .target(
             name: "CDunneAudioKit",
-            dependencies: ["AudioKit", "Soundpipe"],
+            dependencies: ["AudioKit", "KissFFT"],
             exclude: [
                 "AudioKitCore/Modulated Delay/README.md",
                 "AudioKitCore/Sampler/Wavpack/license.txt",
