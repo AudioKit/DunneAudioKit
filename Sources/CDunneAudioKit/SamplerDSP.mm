@@ -1,11 +1,11 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 
 #import "SamplerDSP.h"
 #include "wavpack.h"
 #include <math.h>
 
 #import "DSPBase.h"
-#include "AudioKitCore/Sampler/CoreSampler.h"
+#include "DunneCore/Sampler/CoreSampler.h"
 #include "LinearParameterRamp.h"
 
 struct SamplerDSP : DSPBase, CoreSampler

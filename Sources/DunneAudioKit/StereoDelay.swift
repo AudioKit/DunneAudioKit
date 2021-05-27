@@ -1,7 +1,8 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 
 import AVFoundation
 import AudioKit
+import AudioKitEX
 import CDunneAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes

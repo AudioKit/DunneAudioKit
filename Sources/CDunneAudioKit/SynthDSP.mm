@@ -1,10 +1,10 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 
 #import "SynthDSP.h"
 #include <math.h>
 
 #import "DSPBase.h"
-#include "AudioKitCore/Synth/CoreSynth.h"
+#include "DunneCore/Synth/CoreSynth.h"
 #include "LinearParameterRamp.h"
 
 struct SynthDSP : DSPBase, CoreSynth

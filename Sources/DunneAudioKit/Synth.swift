@@ -1,8 +1,9 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 #if !os(tvOS)
 
 import AVFoundation
 import AudioKit
+import AudioKitEX
 import CDunneAudioKit
 
 /// Synth

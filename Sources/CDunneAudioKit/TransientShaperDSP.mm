@@ -1,8 +1,8 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 
 #include "DSPBase.h"
 #include "ParameterRamper.h"
-#include "AudioKitCore/Modulated Delay/StereoDelay.h"
+#include "DunneCore/Modulated Delay/StereoDelay.h"
 
 /*
  The objects marked Cyclone were derived from the Max/MSP Cyclone library source code.
@@ -273,7 +273,7 @@ private:
     slide *leftReleaseSlideDown;
     slide *rightReleaseSlideDown;
 
-    AudioKitCore::StereoDelay delay1;
+    DunneCore::StereoDelay delay1;
 
     ParameterRamper inputAmountRamp;
     ParameterRamper attackAmountRamp;

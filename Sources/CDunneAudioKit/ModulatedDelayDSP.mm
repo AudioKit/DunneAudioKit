@@ -1,4 +1,4 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 
 #import <AudioToolbox/AudioToolbox.h>
 #import <AudioUnit/AudioUnit.h>
@@ -9,8 +9,8 @@
 #import "DSPBase.h"
 #import "ParameterRamper.h"
 
-#import "AudioKitCore/Modulated Delay/ModulatedDelay_Defines.h"
-#import "AudioKitCore/Modulated Delay/ModulatedDelay.h"
+#import "DunneCore/Modulated Delay/ModulatedDelay_Defines.h"
+#import "DunneCore/Modulated Delay/ModulatedDelay.h"
 
 const float kChorus_DefaultFrequency = kChorusDefaultModFreqHz;
 const float kChorus_DefaultDepth = kChorusDefaultDepth;

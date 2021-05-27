@@ -1,7 +1,8 @@
-// Copyright AudioKit. All Rights Reserved. Revision History at http://github.com/AudioKit/AudioKit/
+// Copyright AudioKit. All Rights Reserved.
 
 import AVFoundation
 import AudioKit
+import AudioKitEX
 import CDunneAudioKit
 
 /// Sampler
