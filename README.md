@@ -1,6 +1,6 @@
 # Dunne AudioKit
 
-Shane Dunne's extensions to AudioKit
+Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit
 
 ## Sampler
 **Sampler** is a new, polyphonic sample-playback engine built from scratch in C++. Because the base C++ code is platform-independent, it is also available as an Audio Unit v2 plug-in (which can be loaded into e.g. *Logic Pro X*), and even on Windows as a *VST2* plug-in, for use in Windows DAWs such as Steinberg's *Cubase*. ("VST" is a registered trade mark of [Steinberg Media Technologies GmbH](https://www.steinberg.net/en/company/developers.html).) You'll find these projects under the *Developer* folder in the main AudioKit repo.
