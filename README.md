@@ -1,4 +1,4 @@
-# DunneAudioKit
+# Dunne AudioKit
 
 Shane Dunne's extensions to AudioKit
 
