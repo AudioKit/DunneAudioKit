@@ -5,7 +5,7 @@
 #include <math.h>
 
 #import "DSPBase.h"
-#include "AudioKitCore/Sampler/CoreSampler.h"
+#include "DunneCore/Sampler/CoreSampler.h"
 #include "LinearParameterRamp.h"
 
 struct SamplerDSP : DSPBase, CoreSampler

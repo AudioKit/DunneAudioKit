@@ -32,7 +32,7 @@ The mapping of MIDI (note number, velocity) pairs to samples is done using some 
 ### Sample descriptors
 When using `loadRawSampleData()`, `loadAudioFile()`, and `loadCompressedSampleFile()` to load individual samples, you will need to create instances of one of three Swift structure types as follows.
 
-The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in the *AudioKit/Core/AudioKitCore/Sampler* folder in the main AudioKit repo). This file is simple enough to reproduce here:
+The structures are defined as C structs in *Sampler_Typedefs.h* (which lives in the *AudioKit/Core/DunneCore/Sampler* folder in the main AudioKit repo). This file is simple enough to reproduce here:
 
     typedef struct
     {

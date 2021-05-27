@@ -2,7 +2,7 @@
 
 #include "DSPBase.h"
 #include "ParameterRamper.h"
-#include "AudioKitCore/Modulated Delay/StereoDelay.h"
+#include "DunneCore/Modulated Delay/StereoDelay.h"
 
 enum StereoDelayParameter : AUParameterAddress {
     StereoDelayParameterTime,
@@ -13,7 +13,7 @@ enum StereoDelayParameter : AUParameterAddress {
 
 class StereoDelayDSP : public DSPBase {
 private:
-    AudioKitCore::StereoDelay delay;
+    DunneCore::StereoDelay delay;
     float timeUpperBound = 2.f;
     ParameterRamper timeRamp;
     ParameterRamper feedbackRamp;
