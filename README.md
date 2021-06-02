@@ -10,7 +10,7 @@ Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit
 
 ## Documentation
 
-Documentation is provided on [AudioKit's Website](http://audiokit.io/docs/Packages/DunneAudioKit/)
+Documentation is provided on [AudioKit's Website](http://audiokit.io/Packages/DunneAudioKit/)
 and the Githbub [Wiki](https://github.com/AudioKit/DunneAudioKit/wiki) contains generated documentation from the comments in the code for public classes, structures, enums, and methods.
 
 ## Examples
