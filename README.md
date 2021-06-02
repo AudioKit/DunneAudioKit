@@ -8,8 +8,6 @@
 
 Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit
 
-This extension to AudioKit allows you to use physical models from Stanford's [Synthesis Toolkit (STK)](https://ccrma.stanford.edu/software/stk/).
-
 ## Documentation
 
 The Githbub [Wiki](https://github.com/AudioKit/DunneAudioKit/wiki) hosts the documentation for this project.
