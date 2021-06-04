@@ -11,7 +11,7 @@
 
 </div>
 
-Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit, by Shane DUnne.
+Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit, by Shane Dunne.
 
 ## Documentation
 
