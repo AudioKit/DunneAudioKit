@@ -15,8 +15,17 @@ Chorus, Flanger, Sampler, Stereo Delay, and Synth for AudioKit, by Shane DUnne.
 
 ## Documentation
 
-Documentation is provided on [AudioKit's Website](http://audiokit.io/Packages/DunneAudioKit/)
-and the Githbub [Wiki](https://github.com/AudioKit/DunneAudioKit/wiki) contains generated documentation from the comments in the code for public classes, structures, enums, and methods.
+Detailed documentation is provided on [AudioKit's Website](http://audiokit.io/Packages/DunneAudioKit/).
+
+## API Reference
+
+* [Chorus](https://github.com/AudioKit/DunneAudioKit/wiki/Chorus)
+* [Flanger](https://github.com/AudioKit/DunneAudioKit/wiki/Flanger)
+* [Sampler](https://github.com/AudioKit/DunneAudioKit/wiki/Sampler)
+* [Stereo Delay](https://github.com/AudioKit/DunneAudioKit/wiki/StereoDelay)
+* [Synth](https://github.com/AudioKit/DunneAudioKit/wiki/Synth)
+* [Transient Shaper](https://github.com/AudioKit/DunneAudioKit/wiki/TransientShaper)
+
 
 ## Installation via Swift Package Manager
 
