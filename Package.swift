@@ -5,11 +5,11 @@ import PackageDescription
 
 let package = Package(
     name: "DunneAudioKit",
-    platforms: [.macOS(.v10_14), .iOS(.v13), .tvOS(.v13)],
+    platforms: [.macOS(.v10_13), .iOS(.v11), .tvOS(.v11)],
     products: [.library(name: "DunneAudioKit", targets: ["DunneAudioKit"])],
     dependencies: [
         .package(url: "https://github.com/AudioKit/KissFFT", from: "1.0.0"),
-        .package(url: "https://github.com/AudioKit/AudioKit", from: "5.2.0")
+        .package(url: "https://github.com/AudioKit/AudioKit", .branch("develop"))
     ],
     targets: [
         .target(name: "DunneAudioKit", dependencies: ["AudioKit", "CDunneAudioKit"]),
