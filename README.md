@@ -26,11 +26,9 @@ Detailed documentation is provided on [AudioKit's Website](http://audiokit.io/Pa
 * [Synth](https://github.com/AudioKit/DunneAudioKit/wiki/Synth)
 * [Transient Shaper](https://github.com/AudioKit/DunneAudioKit/wiki/TransientShaper)
 
-
 ## Installation via Swift Package Manager
 
 To add AudioKitUI to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/DunneAudioKit/` for the URL. 
-
 
 ## Examples
 

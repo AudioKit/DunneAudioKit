@@ -137,7 +137,7 @@ SamplerDSP::SamplerDSP() : CoreSampler()
     filterCutoffRamp.setTarget(4, true);
     filterStrengthRamp.setTarget(20.0f, true);
     filterResonanceRamp.setTarget(1.0, true);
-    pitchADSRSemitonesRamp.setTarget(1.0, true);
+    pitchADSRSemitonesRamp.setTarget(0.0, true);
     glideRateRamp.setTarget(0.0, true);
 }
 
