@@ -498,6 +498,7 @@ public class Sampler: Node {
         unloadAllSamples()
         loadAudioFile(from: descriptor, file: file)
         buildKeyMap()
+        restartVoices()
     }
 
     /// Stop all voices
