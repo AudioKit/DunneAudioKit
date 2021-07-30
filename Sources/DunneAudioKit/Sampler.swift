@@ -481,6 +481,25 @@ public class Sampler: Node {
         }
     }
 
+    // Public load function that makes sense on a sample player - simply takes an AVfile and loads that
+    public func loadAudioFile(file: AVAudioFile, rootNote: UInt8 = 48, noteFrequency: Float = 440,
+                              loKey: UInt8 = 0, hiKey: UInt8 = 127, loVelocity: UInt8 = 0, hiVelocity: UInt8 = 127,
+                              startPoint: Float = 0, endPoint: Float? = nil,
+                              loopEnabled: Bool = false, loopStartPoint: Float = 0, loopEndPoint: Float? = nil) {
+        stopAllVoices()
+        let descriptor = SampleDescriptor(noteNumber: Int32(rootNote), noteFrequency: noteFrequency,
+                                          minimumNoteNumber: Int32(loKey), maximumNoteNumber: Int32(hiKey),
+                                          minimumVelocity: Int32(loVelocity), maximumVelocity: Int32(hiVelocity),
+                                          isLooping: loopEnabled,
+                                          loopStartPoint: loopStartPoint,
+                                          loopEndPoint: loopEndPoint ?? Float(file.length),
+                                          startPoint: startPoint,
+                                          endPoint: endPoint ?? Float(file.length))
+        unloadAllSamples()
+        loadAudioFile(from: descriptor, file: file)
+        buildKeyMap()
+    }
+
     /// Stop all voices
     public func stopAllVoices() {
         akSamplerStopAllVoices(au.dsp)
