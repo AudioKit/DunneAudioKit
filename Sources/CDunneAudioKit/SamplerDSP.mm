@@ -377,8 +377,10 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
             if (num == 64) {
                 uint8_t value = midiEvent.data[2];
                 if (value <= 63) {
+                    printf("setting sustain off");
                     sustainPedal(false);
                 } else {
+                    printf("setting sustain on");
                     sustainPedal(true);
                 }
             }
