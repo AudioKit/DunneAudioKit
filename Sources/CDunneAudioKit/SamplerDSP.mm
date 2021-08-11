@@ -374,6 +374,14 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
         }
         case MIDI_CONTINUOUS_CONTROLLER : {
             uint8_t num = midiEvent.data[1];
+            if (num == 64) {
+                uint8_t value = midiEvent.data[2];
+                if (value <= 63) {
+                    sustainPedal(false);
+                } else {
+                    sustainPedal(true);
+                }
+            }
             if (num == 123) { // all notes off
                 stopAllVoices();
             }
