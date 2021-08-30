@@ -43,7 +43,7 @@ public:
         if (immediate) {
             _startValue = _paramValue = _value = _target = value;
         } else {
-            _paramValue = value;
+            _target = _paramValue = value;
         }
     }
 
