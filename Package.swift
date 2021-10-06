@@ -19,7 +19,6 @@ let package = Package(
             exclude: [
                 "DunneCore/Sampler/Wavpack/license.txt",
                 "DunneCore/Common/README.md",
-                "DunneCore/Common/Envelope.hpp",
                 "DunneCore/Sampler/README.md",
                 "DunneCore/README.md",
             ],
