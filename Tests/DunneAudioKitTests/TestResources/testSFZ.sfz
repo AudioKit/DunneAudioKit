@@ -1,0 +1,5 @@
+<control>
+<global>
+ampeg_release = 1
+<group>key=64
+<region> sample=12345.wv
