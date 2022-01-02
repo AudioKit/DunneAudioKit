@@ -49,17 +49,19 @@ typedef NS_ENUM(AUParameterAddress, SamplerParameter)
 
 #include "Sampler_Typedefs.h"
 
-AK_API DSPRef akSamplerCreateDSP(void);
-AK_API void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD);
-AK_API void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD);
-AK_API void akSamplerUnloadAllSamples(DSPRef pDSP);
-AK_API void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency);
-AK_API void akSamplerBuildSimpleKeyMap(DSPRef pDSP);
-AK_API void akSamplerBuildKeyMap(DSPRef pDSP);
-AK_API void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
-AK_API void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
-AK_API void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
-AK_API void akSamplerStopAllVoices(DSPRef pDSP);
-AK_API void akSamplerRestartVoices(DSPRef pDSP);
-AK_API void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
+CF_EXTERN_C_BEGIN
+DSPRef akSamplerCreateDSP(void);
+void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD);
+void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD);
+void akSamplerUnloadAllSamples(DSPRef pDSP);
+void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency);
+void akSamplerBuildSimpleKeyMap(DSPRef pDSP);
+void akSamplerBuildKeyMap(DSPRef pDSP);
+void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
+void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
+void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
+void akSamplerStopAllVoices(DSPRef pDSP);
+void akSamplerRestartVoices(DSPRef pDSP);
+void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
+CF_EXTERN_C_END
 
