@@ -549,7 +549,7 @@ public class Sampler: Node {
     }
 
     /// Set Loop
-    /// - Parameter thruRelease: Wether or not to loop before or after the release
+    /// - Parameter thruRelease: Whether or not to loop before or after the release
     public func setLoop(thruRelease: Bool) {
         akSamplerSetLoopThruRelease(au.dsp, thruRelease)
     }
@@ -578,7 +578,7 @@ public class Sampler: Node {
     }
 
     /// Activate the sustain pedal
-    /// - Parameter pedalDown: Wether the pedal is down (activated)
+    /// - Parameter pedalDown: Whether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
         akSamplerSustainPedal(au.dsp, pedalDown)
     }

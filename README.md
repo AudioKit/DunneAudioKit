@@ -28,7 +28,7 @@ Detailed documentation is provided on [AudioKit's Website](http://audiokit.io/Pa
 
 ## Installation via Swift Package Manager
 
-To add AudioKitUI to your Xcode project, select File -> Swift Packages -> Add Package Depedancy. Enter `https://github.com/AudioKit/DunneAudioKit/` for the URL. 
+To add AudioKitUI to your Xcode project, select File -> Swift Packages -> Add Package Dependency. Enter `https://github.com/AudioKit/DunneAudioKit/` for the URL.
 
 ## Examples
 
