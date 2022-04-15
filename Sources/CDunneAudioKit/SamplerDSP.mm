@@ -82,7 +82,7 @@ struct SamplerDSP : DSPBase
     LinearParameterRamp pitchADSRSemitonesRamp;
     LinearParameterRamp glideRateRamp;
 
-    CoreSampler* sampler;
+    CoreSampler* sampler = new CoreSampler();
 
     SamplerDSP();
     ~SamplerDSP();
@@ -111,7 +111,6 @@ void akSamplerUpdateCoreSampler(DSPRef pDSP, CoreSamplerRef pSampler) {
 
 SamplerDSP::SamplerDSP()
 {
-    sampler = new CoreSampler();
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
