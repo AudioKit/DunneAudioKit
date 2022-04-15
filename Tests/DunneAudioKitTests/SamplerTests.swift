@@ -18,7 +18,8 @@ class SamplerTests: XCTestCase {
         sampler.update(coreSampler: core)
         sampler.masterVolume = 0.1
         engine.output = sampler
-        let audio = engine.startTest(totalDuration: 5.0)
+        let audio = engine.startTest(totalDuration: 6.0)
+        audio.append(engine.render(duration: 1.0))
         sampler.play(noteNumber: 64, velocity: 127)
         audio.append(engine.render(duration: 1.0))
         sampler.stop(noteNumber: 64)

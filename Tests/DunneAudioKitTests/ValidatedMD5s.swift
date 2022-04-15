@@ -11,7 +11,7 @@ extension XCTestCase {
 }
 
 let validatedMD5s: [String: String] = [
-    "-[SamplerTests testSampler]": "7818bbaee9cbe19615645f714e6a9a43",
+    "-[SamplerTests testSampler]": "8739229f6bc52fa5db3cc2afe85ee580",
     "-[SynthTests testChord]": "155d8175419836512ead0794f551c7a0",
     "-[SynthTests testMonophonicPlayback]": "77fb882efcaf29c3a426036d85d04090",
     "-[SynthTests testParameterInitialization]": "e27794e7055b8ebdbf7d0591e980484e",
