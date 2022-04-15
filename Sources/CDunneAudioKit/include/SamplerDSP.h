@@ -50,16 +50,13 @@ typedef NS_ENUM(AUParameterAddress, SamplerParameter)
 #include "Sampler_Typedefs.h"
 
 CF_EXTERN_C_BEGIN
-DSPRef akSamplerCreateDSP(void);
-void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD);
-void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD);
-void akSamplerUnloadAllSamples(DSPRef pDSP);
-void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency);
-void akSamplerBuildSimpleKeyMap(DSPRef pDSP);
-void akSamplerBuildKeyMap(DSPRef pDSP);
-void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
-
 typedef struct CoreSampler* CoreSamplerRef;
+
+DSPRef akSamplerCreateDSP(void);
+
+/// Takes ownership of the CoreSampler.
+void akSamplerUpdateCoreSampler(DSPRef pDSP, CoreSamplerRef pSampler);
+
 CoreSamplerRef akCoreSamplerCreate(void);
 void akCoreSamplerLoadData(CoreSamplerRef pSampler, SampleDataDescriptor *pSDD);
 void akCoreSamplerLoadCompressedFile(CoreSamplerRef pSampler, SampleFileDescriptor *pSFD);

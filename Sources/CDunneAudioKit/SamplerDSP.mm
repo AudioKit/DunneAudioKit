@@ -9,7 +9,7 @@
 #include "LinearParameterRamp.h"
 
 CoreSamplerRef akCoreSamplerCreate(void) {
-    new CoreSampler();
+    return new CoreSampler();
 }
 
 void akCoreSamplerLoadData(CoreSamplerRef pSampler, SampleDataDescriptor *pSDD) {
@@ -94,72 +94,19 @@ struct SamplerDSP : DSPBase
 
     void handleMIDIEvent(AUMIDIEvent const& midiEvent) override;
     void process(FrameRange range) override;
+
+    void updateCoreSampler(CoreSampler* newSampler) {
+        newSampler->init(sampleRate);
+        sampler = newSampler;
+    }
 };
 
 DSPRef akSamplerCreateDSP() {
     return new SamplerDSP();
 }
 
-void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD) {
-    ((SamplerDSP*)pDSP)->sampler->loadSampleData(*pSDD);
-}
-
-void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD)
-{
-    char errMsg[100];
-    WavpackContext *wpc = WavpackOpenFileInput(pSFD->path, errMsg, OPEN_2CH_MAX, 0);
-    if (wpc == 0)
-    {
-        printf("Wavpack error loading %s: %s\n", pSFD->path, errMsg);
-        return;
-    }
-
-    SampleDataDescriptor sdd;
-    sdd.sampleDescriptor = pSFD->sampleDescriptor;
-    sdd.sampleRate = (float)WavpackGetSampleRate(wpc);
-    sdd.channelCount = WavpackGetReducedChannels(wpc);
-    sdd.sampleCount = WavpackGetNumSamples(wpc);
-    sdd.isInterleaved = sdd.channelCount > 1;
-    sdd.data = new float[sdd.channelCount * sdd.sampleCount];
-
-    int mode = WavpackGetMode(wpc);
-    WavpackUnpackSamples(wpc, (int32_t*)sdd.data, sdd.sampleCount);
-    if ((mode & MODE_FLOAT) == 0)
-    {
-        // convert samples to floating-point
-        int bps = WavpackGetBitsPerSample(wpc);
-        float scale = 1.0f / (1 << (bps - 1));
-        float *pf = sdd.data;
-        int32_t *pi = (int32_t*)pf;
-        for (int i = 0; i < (sdd.sampleCount * sdd.channelCount); i++)
-            *pf++ = scale * *pi++;
-    }
-    WavpackCloseFile(wpc);
-
-    ((SamplerDSP*)pDSP)->sampler->loadSampleData(sdd);
-    delete[] sdd.data;
-}
-
-void akSamplerUnloadAllSamples(DSPRef pDSP)
-{
-    ((SamplerDSP*)pDSP)->sampler->unloadAllSamples();
-}
-
-void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency)
-{
-    ((SamplerDSP*)pDSP)->sampler->setNoteFrequency(noteNumber, noteFrequency);
-}
-
-void akSamplerBuildSimpleKeyMap(DSPRef pDSP) {
-    ((SamplerDSP*)pDSP)->sampler->buildSimpleKeyMap();
-}
-
-void akSamplerBuildKeyMap(DSPRef pDSP) {
-    ((SamplerDSP*)pDSP)->sampler->buildKeyMap();
-}
-
-void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value) {
-    ((SamplerDSP*)pDSP)->sampler->setLoopThruRelease(value);
+void akSamplerUpdateCoreSampler(DSPRef pDSP, CoreSamplerRef pSampler) {
+    ((SamplerDSP*)pDSP)->updateCoreSampler(pSampler);
 }
 
 SamplerDSP::SamplerDSP()
