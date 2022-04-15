@@ -92,6 +92,10 @@ public:
     float getPitchReleaseDurationSeconds(void);
     
 public:
+
+    /// Are we done using this sampler from the audio thread?
+    std::atomic<bool> done;
+
     // current sampling rate, samples/sec
     // not named sampleRate to avoid clashing with AudioKit's sampleRate
     float currentSampleRate;

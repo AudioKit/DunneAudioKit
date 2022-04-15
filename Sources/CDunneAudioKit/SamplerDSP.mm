@@ -82,10 +82,12 @@ struct SamplerDSP : DSPBase
     LinearParameterRamp pitchADSRSemitonesRamp;
     LinearParameterRamp glideRateRamp;
 
+    std::atomic<CoreSampler*> nextCoreSampler{nullptr};
     CoreSampler* sampler = new CoreSampler();
 
+    std::vector<std::unique_ptr<CoreSampler>> cleanupArray;
+
     SamplerDSP();
-    ~SamplerDSP();
     void init(int channelCount, double sampleRate) override;
     void deinit() override;
 
@@ -97,7 +99,17 @@ struct SamplerDSP : DSPBase
 
     void updateCoreSampler(CoreSampler* newSampler) {
         newSampler->init(sampleRate);
-        sampler = newSampler;
+        nextCoreSampler = newSampler;
+        cleanupArray.push_back(std::unique_ptr<CoreSampler>(newSampler));
+
+        // Clean up any finished CoreSamplers and all prior CoreSamplers.
+        for (auto it = cleanupArray.end(); it > cleanupArray.begin();
+             --it) {
+            if ((*(it - 1))->done) {
+                cleanupArray.erase(cleanupArray.begin(), it);
+                break;
+            }
+        }
     }
 };
 
@@ -111,6 +123,8 @@ void akSamplerUpdateCoreSampler(DSPRef pDSP, CoreSamplerRef pSampler) {
 
 SamplerDSP::SamplerDSP()
 {
+    nextCoreSampler = sampler;
+    cleanupArray.push_back(std::unique_ptr<CoreSampler>(sampler));
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
@@ -122,10 +136,6 @@ SamplerDSP::SamplerDSP()
     filterResonanceRamp.setTarget(1.0, true);
     pitchADSRSemitonesRamp.setTarget(0.0, true);
     glideRateRamp.setTarget(0.0, true);
-}
-
-SamplerDSP::~SamplerDSP() {
-    delete sampler;
 }
 
 void SamplerDSP::init(int channelCount, double sampleRate)
@@ -385,6 +395,17 @@ void SamplerDSP::process(FrameRange range)
 
     memset(pLeft, 0, range.count * sizeof(float));
     memset(pRight, 0, range.count * sizeof(float));
+
+    CoreSampler *next = nextCoreSampler;
+    if (next != sampler) {
+
+        // We're done with the previous sampler.
+        if (sampler) {
+            sampler->done = true;
+        }
+
+        sampler = next;
+    }
 
     // process in chunks of maximum length CORESAMPLER_CHUNKSIZE
     for (int frameIndex = 0; frameIndex < range.count; frameIndex += CORESAMPLER_CHUNKSIZE) {
