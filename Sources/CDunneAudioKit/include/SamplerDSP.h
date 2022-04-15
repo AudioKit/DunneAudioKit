@@ -60,7 +60,5 @@ void akSamplerBuildKeyMap(DSPRef pDSP);
 void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
 void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
 void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
-void akSamplerStopAllVoices(DSPRef pDSP);
-void akSamplerRestartVoices(DSPRef pDSP);
 CF_EXTERN_C_END
 

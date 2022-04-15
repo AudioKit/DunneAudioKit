@@ -113,16 +113,6 @@ void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate)
     ((SamplerDSP*)pDSP)->sampler->stopNote(noteNumber, immediate);
 }
 
-void akSamplerStopAllVoices(DSPRef pDSP)
-{
-    ((SamplerDSP*)pDSP)->sampler->stopAllVoices();
-}
-
-void akSamplerRestartVoices(DSPRef pDSP)
-{
-    ((SamplerDSP*)pDSP)->sampler->restartVoices();
-}
-
 SamplerDSP::SamplerDSP()
 {
     sampler = new CoreSampler();

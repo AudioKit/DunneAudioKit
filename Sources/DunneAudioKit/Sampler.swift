@@ -486,7 +486,6 @@ public class Sampler: Node {
                               loKey: UInt8 = 0, hiKey: UInt8 = 127, loVelocity: UInt8 = 0, hiVelocity: UInt8 = 127,
                               startPoint: Float = 0, endPoint: Float? = nil,
                               loopEnabled: Bool = false, loopStartPoint: Float = 0, loopEndPoint: Float? = nil) {
-        stopAllVoices()
         let descriptor = SampleDescriptor(noteNumber: Int32(rootNote), noteFrequency: noteFrequency,
                                           minimumNoteNumber: Int32(loKey), maximumNoteNumber: Int32(hiKey),
                                           minimumVelocity: Int32(loVelocity), maximumVelocity: Int32(hiVelocity),
@@ -498,17 +497,6 @@ public class Sampler: Node {
         unloadAllSamples()
         loadAudioFile(from: descriptor, file: file)
         buildKeyMap()
-        restartVoices()
-    }
-
-    /// Stop all voices
-    public func stopAllVoices() {
-        akSamplerStopAllVoices(au.dsp)
-    }
-
-    /// Restart voices
-    public func restartVoices() {
-        akSamplerRestartVoices(au.dsp)
     }
 
     /// Load data from sample descriptor

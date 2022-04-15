@@ -26,7 +26,6 @@ extension Sampler {
     ///
     public func loadSFZ(url: URL) {
 
-        stopAllVoices()
         unloadAllSamples()
 
         var lowNoteNumber: MIDINoteNumber = 0
@@ -132,6 +131,5 @@ extension Sampler {
         }
 
         buildKeyMap()
-        restartVoices()
     }
 }
