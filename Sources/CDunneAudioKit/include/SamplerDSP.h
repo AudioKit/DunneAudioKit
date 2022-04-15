@@ -58,7 +58,5 @@ void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency)
 void akSamplerBuildSimpleKeyMap(DSPRef pDSP);
 void akSamplerBuildKeyMap(DSPRef pDSP);
 void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
-void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
-void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
 CF_EXTERN_C_END
 

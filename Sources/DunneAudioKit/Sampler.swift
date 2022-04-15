@@ -559,11 +559,9 @@ public class Sampler: Node {
         scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
     }
 
-    /// Stop and immediately silence a note
-    /// - Parameter noteNumber: MIDI note number
-    public func silence(noteNumber: MIDINoteNumber) {
-        // XXX: not thread safe
-        akSamplerStopNote(au.dsp, noteNumber, true)
+    /// Silence all notes immediately.
+    public func silence() {
+        scheduleMIDIEvent(event: MIDIEvent(controllerChange: 123, value: 127, channel: 0))
     }
 
     /// Activate the sustain pedal

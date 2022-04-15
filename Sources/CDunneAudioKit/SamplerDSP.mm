@@ -103,16 +103,6 @@ void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value) {
     ((SamplerDSP*)pDSP)->sampler->setLoopThruRelease(value);
 }
 
-void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
-{
-    ((SamplerDSP*)pDSP)->sampler->playNote(noteNumber, velocity);
-}
-
-void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate)
-{
-    ((SamplerDSP*)pDSP)->sampler->stopNote(noteNumber, immediate);
-}
-
 SamplerDSP::SamplerDSP()
 {
     sampler = new CoreSampler();
