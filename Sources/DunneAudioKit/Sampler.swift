@@ -581,8 +581,7 @@ public class Sampler: Node {
     /// Activate the sustain pedal
     /// - Parameter pedalDown: Whether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
-        // XXX: not thread safe
-        akSamplerSustainPedal(au.dsp, pedalDown)
+        scheduleMIDIEvent(event: MIDIEvent(controllerChange: 64, value: pedalDown ? 127 : 0, channel: 0))
     }
 
 }

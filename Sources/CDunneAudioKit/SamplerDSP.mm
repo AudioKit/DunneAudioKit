@@ -123,12 +123,6 @@ void akSamplerRestartVoices(DSPRef pDSP)
     ((SamplerDSP*)pDSP)->sampler->restartVoices();
 }
 
-void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown)
-{
-    ((SamplerDSP*)pDSP)->sampler->sustainPedal(pedalDown);
-}
-
-
 SamplerDSP::SamplerDSP()
 {
     sampler = new CoreSampler();

@@ -62,6 +62,5 @@ void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity);
 void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate);
 void akSamplerStopAllVoices(DSPRef pDSP);
 void akSamplerRestartVoices(DSPRef pDSP);
-void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown);
 CF_EXTERN_C_END
 
