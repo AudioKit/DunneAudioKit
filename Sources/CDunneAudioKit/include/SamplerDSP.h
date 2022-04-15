@@ -58,5 +58,14 @@ void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency)
 void akSamplerBuildSimpleKeyMap(DSPRef pDSP);
 void akSamplerBuildKeyMap(DSPRef pDSP);
 void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value);
+
+typedef struct CoreSampler* CoreSamplerRef;
+CoreSamplerRef akCoreSamplerCreate(void);
+void akCoreSamplerLoadData(CoreSamplerRef pSampler, SampleDataDescriptor *pSDD);
+void akCoreSamplerLoadCompressedFile(CoreSamplerRef pSampler, SampleFileDescriptor *pSFD);
+void akCoreSamplerSetNoteFrequency(CoreSamplerRef pSampler, int noteNumber, float noteFrequency);
+void akCoreSamplerBuildSimpleKeyMap(CoreSamplerRef pSampler);
+void akCoreSamplerBuildKeyMap(CoreSamplerRef pSampler);
+void akCoreSamplerSetLoopThruRelease(CoreSamplerRef pSampler, bool value);
 CF_EXTERN_C_END
 
