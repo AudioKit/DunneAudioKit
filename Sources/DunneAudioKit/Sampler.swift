@@ -562,24 +562,26 @@ public class Sampler: Node {
     public func play(noteNumber: MIDINoteNumber,
                      velocity: MIDIVelocity,
                      channel: MIDIChannel = 0) {
-        akSamplerPlayNote(au.dsp, noteNumber, velocity)
+        scheduleMIDIEvent(event: MIDIEvent(noteOn: noteNumber, velocity: velocity, channel: channel))
     }
 
     /// Stop the sampler playback of a specific note
     /// - Parameter noteNumber: MIDI Note number
     public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        akSamplerStopNote(au.dsp, noteNumber, false)
+        scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
     }
 
     /// Stop and immediately silence a note
     /// - Parameter noteNumber: MIDI note number
     public func silence(noteNumber: MIDINoteNumber) {
+        // XXX: not thread safe
         akSamplerStopNote(au.dsp, noteNumber, true)
     }
 
     /// Activate the sustain pedal
     /// - Parameter pedalDown: Whether the pedal is down (activated)
     public func sustainPedal(pedalDown: Bool) {
+        // XXX: not thread safe
         akSamplerSustainPedal(au.dsp, pedalDown)
     }
 
