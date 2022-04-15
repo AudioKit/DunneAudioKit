@@ -91,7 +91,7 @@ public:
     void  setPitchReleaseDurationSeconds(float value);
     float getPitchReleaseDurationSeconds(void);
     
-protected:
+public:
     // current sampling rate, samples/sec
     // not named sampleRate to avoid clashing with AudioKit's sampleRate
     float currentSampleRate;

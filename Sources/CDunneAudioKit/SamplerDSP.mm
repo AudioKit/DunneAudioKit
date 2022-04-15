@@ -8,7 +8,7 @@
 #include "DunneCore/Sampler/CoreSampler.h"
 #include "LinearParameterRamp.h"
 
-struct SamplerDSP : DSPBase, CoreSampler
+struct SamplerDSP : DSPBase
 {
     // ramped parameters
     LinearParameterRamp masterVolumeRamp;
@@ -22,6 +22,8 @@ struct SamplerDSP : DSPBase, CoreSampler
     LinearParameterRamp filterResonanceRamp;
     LinearParameterRamp pitchADSRSemitonesRamp;
     LinearParameterRamp glideRateRamp;
+
+    CoreSampler sampler;
 
     SamplerDSP();
     void init(int channelCount, double sampleRate) override;
@@ -39,7 +41,7 @@ DSPRef akSamplerCreateDSP() {
 }
 
 void akSamplerLoadData(DSPRef pDSP, SampleDataDescriptor *pSDD) {
-    ((SamplerDSP*)pDSP)->loadSampleData(*pSDD);
+    ((SamplerDSP*)pDSP)->sampler.loadSampleData(*pSDD);
 }
 
 void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD)
@@ -74,59 +76,59 @@ void akSamplerLoadCompressedFile(DSPRef pDSP, SampleFileDescriptor *pSFD)
     }
     WavpackCloseFile(wpc);
 
-    ((SamplerDSP*)pDSP)->loadSampleData(sdd);
+    ((SamplerDSP*)pDSP)->sampler.loadSampleData(sdd);
     delete[] sdd.data;
 }
 
 void akSamplerUnloadAllSamples(DSPRef pDSP)
 {
-    ((SamplerDSP*)pDSP)->unloadAllSamples();
+    ((SamplerDSP*)pDSP)->sampler.unloadAllSamples();
 }
 
 void akSamplerSetNoteFrequency(DSPRef pDSP, int noteNumber, float noteFrequency)
 {
-    ((SamplerDSP*)pDSP)->setNoteFrequency(noteNumber, noteFrequency);
+    ((SamplerDSP*)pDSP)->sampler.setNoteFrequency(noteNumber, noteFrequency);
 }
 
 void akSamplerBuildSimpleKeyMap(DSPRef pDSP) {
-    ((SamplerDSP*)pDSP)->buildSimpleKeyMap();
+    ((SamplerDSP*)pDSP)->sampler.buildSimpleKeyMap();
 }
 
 void akSamplerBuildKeyMap(DSPRef pDSP) {
-    ((SamplerDSP*)pDSP)->buildKeyMap();
+    ((SamplerDSP*)pDSP)->sampler.buildKeyMap();
 }
 
 void akSamplerSetLoopThruRelease(DSPRef pDSP, bool value) {
-    ((SamplerDSP*)pDSP)->setLoopThruRelease(value);
+    ((SamplerDSP*)pDSP)->sampler.setLoopThruRelease(value);
 }
 
 void akSamplerPlayNote(DSPRef pDSP, UInt8 noteNumber, UInt8 velocity)
 {
-    ((SamplerDSP*)pDSP)->playNote(noteNumber, velocity);
+    ((SamplerDSP*)pDSP)->sampler.playNote(noteNumber, velocity);
 }
 
 void akSamplerStopNote(DSPRef pDSP, UInt8 noteNumber, bool immediate)
 {
-    ((SamplerDSP*)pDSP)->stopNote(noteNumber, immediate);
+    ((SamplerDSP*)pDSP)->sampler.stopNote(noteNumber, immediate);
 }
 
 void akSamplerStopAllVoices(DSPRef pDSP)
 {
-    ((SamplerDSP*)pDSP)->stopAllVoices();
+    ((SamplerDSP*)pDSP)->sampler.stopAllVoices();
 }
 
 void akSamplerRestartVoices(DSPRef pDSP)
 {
-    ((SamplerDSP*)pDSP)->restartVoices();
+    ((SamplerDSP*)pDSP)->sampler.restartVoices();
 }
 
 void akSamplerSustainPedal(DSPRef pDSP, bool pedalDown)
 {
-    ((SamplerDSP*)pDSP)->sustainPedal(pedalDown);
+    ((SamplerDSP*)pDSP)->sampler.sustainPedal(pedalDown);
 }
 
 
-SamplerDSP::SamplerDSP() : CoreSampler()
+SamplerDSP::SamplerDSP()
 {
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
@@ -144,13 +146,13 @@ SamplerDSP::SamplerDSP() : CoreSampler()
 void SamplerDSP::init(int channelCount, double sampleRate)
 {
     DSPBase::init(channelCount, sampleRate);
-    CoreSampler::init(sampleRate);
+    sampler.init(sampleRate);
 }
 
 void SamplerDSP::deinit()
 {
     DSPBase::deinit();
-    CoreSampler::deinit();
+    sampler.deinit();
 }
 
 void SamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
@@ -202,74 +204,74 @@ void SamplerDSP::setParameter(AUParameterAddress address, float value, bool imme
             break;
 
         case SamplerParameterAttackDuration:
-            setADSRAttackDurationSeconds(value);
+            sampler.setADSRAttackDurationSeconds(value);
             break;
         case SamplerParameterHoldDuration:
-            setADSRHoldDurationSeconds(value);
+            sampler.setADSRHoldDurationSeconds(value);
             break;
         case SamplerParameterDecayDuration:
-            setADSRDecayDurationSeconds(value);
+            sampler.setADSRDecayDurationSeconds(value);
             break;
         case SamplerParameterSustainLevel:
-            setADSRSustainFraction(value);
+            sampler.setADSRSustainFraction(value);
             break;
         case SamplerParameterReleaseHoldDuration:
-            setADSRReleaseHoldDurationSeconds(value);
+            sampler.setADSRReleaseHoldDurationSeconds(value);
             break;
         case SamplerParameterReleaseDuration:
-            setADSRReleaseDurationSeconds(value);
+            sampler.setADSRReleaseDurationSeconds(value);
             break;
 
         case SamplerParameterFilterAttackDuration:
-            setFilterAttackDurationSeconds(value);
+            sampler.setFilterAttackDurationSeconds(value);
             break;
         case SamplerParameterFilterDecayDuration:
-            setFilterDecayDurationSeconds(value);
+            sampler.setFilterDecayDurationSeconds(value);
             break;
         case SamplerParameterFilterSustainLevel:
-            setFilterSustainFraction(value);
+            sampler.setFilterSustainFraction(value);
             break;
         case SamplerParameterFilterReleaseDuration:
-            setFilterReleaseDurationSeconds(value);
+            sampler.setFilterReleaseDurationSeconds(value);
             break;
 
         case SamplerParameterPitchAttackDuration:
-            setPitchAttackDurationSeconds(value);
+            sampler.setPitchAttackDurationSeconds(value);
             break;
         case SamplerParameterPitchDecayDuration:
-            setPitchDecayDurationSeconds(value);
+            sampler.setPitchDecayDurationSeconds(value);
             break;
         case SamplerParameterPitchSustainLevel:
-            setPitchSustainFraction(value);
+            sampler.setPitchSustainFraction(value);
             break;
         case SamplerParameterPitchReleaseDuration:
-            setPitchReleaseDurationSeconds(value);
+            sampler.setPitchReleaseDurationSeconds(value);
             break;
         case SamplerParameterPitchADSRSemitones:
             pitchADSRSemitonesRamp.setTarget(value, immediate);
             break;
 
         case SamplerParameterRestartVoiceLFO:
-            restartVoiceLFO = value > 0.5f;
+            sampler.restartVoiceLFO = value > 0.5f;
             break;
 
         case SamplerParameterFilterEnable:
-            isFilterEnabled = value > 0.5f;
+            sampler.isFilterEnabled = value > 0.5f;
             break;
         case SamplerParameterLoopThruRelease:
-            loopThruRelease = value > 0.5f;
+            sampler.loopThruRelease = value > 0.5f;
             break;
         case SamplerParameterMonophonic:
-            isMonophonic = value > 0.5f;
+            sampler.isMonophonic = value > 0.5f;
             break;
         case SamplerParameterLegato:
-            isLegato = value > 0.5f;
+            sampler.isLegato = value > 0.5f;
             break;
         case SamplerParameterKeyTrackingFraction:
-            keyTracking = value;
+            sampler.keyTracking = value;
             break;
         case SamplerParameterFilterEnvelopeVelocityScaling:
-            filterEnvelopeVelocityScaling = value;
+            sampler.filterEnvelopeVelocityScaling = value;
             break;
     }
 }
@@ -303,52 +305,52 @@ float SamplerDSP::getParameter(AUParameterAddress address)
             return glideRateRamp.getTarget();
 
         case SamplerParameterAttackDuration:
-            return getADSRAttackDurationSeconds();
+            return sampler.getADSRAttackDurationSeconds();
         case SamplerParameterHoldDuration:
-            return getADSRHoldDurationSeconds();
+            return sampler.getADSRHoldDurationSeconds();
         case SamplerParameterDecayDuration:
-            return getADSRDecayDurationSeconds();
+            return sampler.getADSRDecayDurationSeconds();
         case SamplerParameterSustainLevel:
-            return getADSRSustainFraction();
+            return sampler.getADSRSustainFraction();
         case SamplerParameterReleaseHoldDuration:
-            return getADSRReleaseHoldDurationSeconds();
+            return sampler.getADSRReleaseHoldDurationSeconds();
         case SamplerParameterReleaseDuration:
-            return getADSRReleaseDurationSeconds();
+            return sampler.getADSRReleaseDurationSeconds();
 
         case SamplerParameterFilterAttackDuration:
-            return getFilterAttackDurationSeconds();
+            return sampler.getFilterAttackDurationSeconds();
         case SamplerParameterFilterDecayDuration:
-            return getFilterDecayDurationSeconds();
+            return sampler.getFilterDecayDurationSeconds();
         case SamplerParameterFilterSustainLevel:
-            return getFilterSustainFraction();
+            return sampler.getFilterSustainFraction();
         case SamplerParameterFilterReleaseDuration:
-            return getFilterReleaseDurationSeconds();
+            return sampler.getFilterReleaseDurationSeconds();
 
         case SamplerParameterPitchAttackDuration:
-            return getPitchAttackDurationSeconds();
+            return sampler.getPitchAttackDurationSeconds();
         case SamplerParameterPitchDecayDuration:
-            return getPitchDecayDurationSeconds();
+            return sampler.getPitchDecayDurationSeconds();
         case SamplerParameterPitchSustainLevel:
-            return getPitchSustainFraction();
+            return sampler.getPitchSustainFraction();
         case SamplerParameterPitchReleaseDuration:
-            return getPitchReleaseDurationSeconds();
+            return sampler.getPitchReleaseDurationSeconds();
         case SamplerParameterPitchADSRSemitones:
             return pitchADSRSemitonesRamp.getTarget();
         case SamplerParameterRestartVoiceLFO:
-            return restartVoiceLFO ? 1.0f : 0.0f;
+            return sampler.restartVoiceLFO ? 1.0f : 0.0f;
 
         case SamplerParameterFilterEnable:
-            return isFilterEnabled ? 1.0f : 0.0f;
+            return sampler.isFilterEnabled ? 1.0f : 0.0f;
         case SamplerParameterLoopThruRelease:
-            return loopThruRelease ? 1.0f : 0.0f;
+            return sampler.loopThruRelease ? 1.0f : 0.0f;
         case SamplerParameterMonophonic:
-            return isMonophonic ? 1.0f : 0.0f;
+            return sampler.isMonophonic ? 1.0f : 0.0f;
         case SamplerParameterLegato:
-            return isLegato ? 1.0f : 0.0f;
+            return sampler.isLegato ? 1.0f : 0.0f;
         case SamplerParameterKeyTrackingFraction:
-            return keyTracking;
+            return sampler.keyTracking;
         case SamplerParameterFilterEnvelopeVelocityScaling:
-            return filterEnvelopeVelocityScaling;
+            return sampler.filterEnvelopeVelocityScaling;
     }
     return 0;
 }
@@ -362,14 +364,14 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
         case MIDI_NOTE_OFF : {
             uint8_t note = midiEvent.data[1];
             if (note > 127) break;
-            stopNote(note, false);
+            sampler.stopNote(note, false);
             break;
         }
         case MIDI_NOTE_ON : {
             uint8_t note = midiEvent.data[1];
             uint8_t veloc = midiEvent.data[2];
             if (note > 127 || veloc > 127) break;
-            playNote(note, veloc);
+            sampler.playNote(note, veloc);
             break;
         }
         case MIDI_CONTINUOUS_CONTROLLER : {
@@ -377,13 +379,13 @@ void SamplerDSP::handleMIDIEvent(const AUMIDIEvent &midiEvent)
             if (num == 64) {
                 uint8_t value = midiEvent.data[2];
                 if (value <= 63) {
-                    sustainPedal(false);
+                    sampler.sustainPedal(false);
                 } else {
-                    sustainPedal(true);
+                    sampler.sustainPedal(true);
                 }
             }
             if (num == 123) { // all notes off
-                stopAllVoices();
+                sampler.stopAllVoices();
             }
             break;
         }
@@ -407,36 +409,36 @@ void SamplerDSP::process(FrameRange range)
 
         // ramp parameters
         masterVolumeRamp.advanceTo(now + frameOffset);
-        masterVolume = (float)masterVolumeRamp.getValue();
+        sampler.masterVolume = (float)masterVolumeRamp.getValue();
         pitchBendRamp.advanceTo(now + frameOffset);
-        pitchOffset = (float)pitchBendRamp.getValue();
+        sampler.pitchOffset = (float)pitchBendRamp.getValue();
         vibratoDepthRamp.advanceTo(now + frameOffset);
-        vibratoDepth = (float)vibratoDepthRamp.getValue();
+        sampler.vibratoDepth = (float)vibratoDepthRamp.getValue();
         vibratoFrequencyRamp.advanceTo(now + frameOffset);
-        vibratoFrequency = (float)vibratoFrequencyRamp.getValue();
+        sampler.vibratoFrequency = (float)vibratoFrequencyRamp.getValue();
         voiceVibratoDepthRamp.advanceTo(now + frameOffset);
-        voiceVibratoDepth = (float)voiceVibratoDepthRamp.getValue();
+        sampler.voiceVibratoDepth = (float)voiceVibratoDepthRamp.getValue();
         voiceVibratoFrequencyRamp.advanceTo(now + frameOffset);
-        voiceVibratoFrequency = (float)voiceVibratoFrequencyRamp.getValue();
+        sampler.voiceVibratoFrequency = (float)voiceVibratoFrequencyRamp.getValue();
         filterCutoffRamp.advanceTo(now + frameOffset);
-        cutoffMultiple = (float)filterCutoffRamp.getValue();
+        sampler.cutoffMultiple = (float)filterCutoffRamp.getValue();
         filterStrengthRamp.advanceTo(now + frameOffset);
-        cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
+        sampler.cutoffEnvelopeStrength = (float)filterStrengthRamp.getValue();
         filterResonanceRamp.advanceTo(now + frameOffset);
-        linearResonance = (float)filterResonanceRamp.getValue();
+        sampler.linearResonance = (float)filterResonanceRamp.getValue();
         
         pitchADSRSemitonesRamp.advanceTo(now + frameOffset);
-        pitchADSRSemitones = (float)pitchADSRSemitonesRamp.getValue();
+        sampler.pitchADSRSemitones = (float)pitchADSRSemitonesRamp.getValue();
 
         glideRateRamp.advanceTo(now + frameOffset);
-        glideRate = (float)glideRateRamp.getValue();
+        sampler.glideRate = (float)glideRateRamp.getValue();
 
         // get data
         float *outBuffers[2];
         outBuffers[0] = (float *)outputBufferList->mBuffers[0].mData + frameOffset;
         outBuffers[1] = (float *)outputBufferList->mBuffers[1].mData + frameOffset;
         unsigned channelCount = outputBufferList->mNumberBuffers;
-        CoreSampler::render(channelCount, chunkSize, outBuffers);
+        sampler.render(channelCount, chunkSize, outBuffers);
     }
 }
 
