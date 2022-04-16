@@ -67,6 +67,14 @@ class SamplerTests: XCTestCase {
         sleep(1)
         sampler.stop(noteNumber: 88)
         sleep(1)
+
+        let data2 = SamplerData(sampleDescriptor: SampleDescriptor(noteNumber: 64, noteFrequency: 440, minimumNoteNumber: 0, maximumNoteNumber: 127, minimumVelocity: 0, maximumVelocity: 127, isLooping: false, loopStartPoint: 0, loopEndPoint: 1000.0, startPoint: 0.0, endPoint: 44100.0 * 5.0), file: file)
+        data2.buildKeyMap()
+        sampler.update(data: data2)
+
+        sleep(1)
+        sampler.play(noteNumber: 64, velocity: 127)
+        sleep(1)
     }
 
     func testVoiceVibratoFreq() {
