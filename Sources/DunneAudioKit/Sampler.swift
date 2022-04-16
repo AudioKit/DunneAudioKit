@@ -417,8 +417,8 @@ public class Sampler: Node {
         setupParameters()
     }
 
-    public func update(coreSampler: CoreSampler) {
-        akSamplerUpdateCoreSampler(au.dsp, coreSampler.coreSamplerRef)
+    public func update(data: SamplerData) {
+        akSamplerUpdateCoreSampler(au.dsp, data.coreSamplerRef)
     }
 
     /// Play the sampler
@@ -451,7 +451,7 @@ public class Sampler: Node {
 
 }
 
-public struct CoreSampler {
+public struct SamplerData {
 
     var coreSamplerRef = akCoreSamplerCreate()
 

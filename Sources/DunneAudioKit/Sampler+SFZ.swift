@@ -7,7 +7,7 @@ import CDunneAudioKit
 /// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
 /// See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
 
-extension CoreSampler {
+extension SamplerData {
 
     /// Load an SFZ at the given location
     ///
