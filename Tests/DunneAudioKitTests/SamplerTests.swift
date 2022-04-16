@@ -74,6 +74,7 @@ class SamplerTests: XCTestCase {
 
         sleep(1)
         sampler.masterVolume = 0.2
+        sampler.attackDuration = 0.01
         sampler.play(noteNumber: 64, velocity: 127)
         sleep(1)
     }

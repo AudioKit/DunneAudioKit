@@ -150,7 +150,7 @@ void SamplerDSP::deinit()
     sampler->deinit();
 }
 
-void SamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate)
+void SamplerDSP::setParameter(AUParameterAddress address, float value, bool immediate) __attribute__((no_sanitize("thread")))
 {
     switch (address) {
         case SamplerParameterRampDuration:
@@ -271,7 +271,7 @@ void SamplerDSP::setParameter(AUParameterAddress address, float value, bool imme
     }
 }
 
-float SamplerDSP::getParameter(AUParameterAddress address)
+float SamplerDSP::getParameter(AUParameterAddress address) __attribute__((no_sanitize("thread")))
 {
     switch (address) {
         case SamplerParameterRampDuration:

@@ -88,7 +88,7 @@ namespace DunneCore
         env.reset(&envDesc);
     }
 
-    void AHDSHREnvelope::updateParams()
+    void AHDSHREnvelope::updateParams() __attribute__((no_sanitize("thread")))
     {
         if (envDesc.size() < 8) return;
         double sustainFraction = double(pParameters->sustainFraction);

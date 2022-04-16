@@ -432,7 +432,7 @@ void CoreSampler::render(unsigned channelCount, unsigned sampleCount, float *out
     }
 }
 
-void  CoreSampler::setADSRAttackDurationSeconds(float value)
+void  CoreSampler::setADSRAttackDurationSeconds(float value) __attribute__((no_sanitize("thread")))
 {
     data->ampEnvelopeParameters.setAttackDurationSeconds(value);
     for (int i = 0; i < MAX_POLYPHONY; i++) data->voice[i].updateAmpAdsrParameters();
