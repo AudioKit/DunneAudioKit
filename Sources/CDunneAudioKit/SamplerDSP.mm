@@ -7,6 +7,7 @@
 #import "DSPBase.h"
 #include "DunneCore/Sampler/CoreSampler.h"
 #include "LinearParameterRamp.h"
+#include "AtomicDataPtr.h"
 
 CoreSamplerRef akCoreSamplerCreate(void) {
     return new CoreSampler();
@@ -82,8 +83,7 @@ struct SamplerDSP : DSPBase
     LinearParameterRamp pitchADSRSemitonesRamp;
     LinearParameterRamp glideRateRamp;
 
-    std::atomic<CoreSampler*> nextCoreSampler{nullptr};
-    CoreSampler* sampler = new CoreSampler();
+    AtomicDataPtr<CoreSampler> sampler;
 
     std::vector<std::unique_ptr<CoreSampler>> cleanupArray;
 
@@ -99,17 +99,7 @@ struct SamplerDSP : DSPBase
 
     void updateCoreSampler(CoreSampler* newSampler) {
         newSampler->init(sampleRate);
-        nextCoreSampler = newSampler;
-        cleanupArray.push_back(std::unique_ptr<CoreSampler>(newSampler));
-
-        // Clean up any finished CoreSamplers and all prior CoreSamplers.
-        for (auto it = cleanupArray.end(); it > cleanupArray.begin();
-             --it) {
-            if ((*(it - 1))->done) {
-                cleanupArray.erase(cleanupArray.begin(), it);
-                break;
-            }
-        }
+        sampler.set(newSampler);
     }
 };
 
@@ -123,8 +113,8 @@ void akSamplerUpdateCoreSampler(DSPRef pDSP, CoreSamplerRef pSampler) {
 
 SamplerDSP::SamplerDSP()
 {
-    nextCoreSampler = sampler;
-    cleanupArray.push_back(std::unique_ptr<CoreSampler>(sampler));
+    sampler.set(new CoreSampler);
+    sampler.update();
     masterVolumeRamp.setTarget(1.0, true);
     pitchBendRamp.setTarget(0.0, true);
     vibratoDepthRamp.setTarget(0.0, true);
@@ -396,16 +386,7 @@ void SamplerDSP::process(FrameRange range)
     memset(pLeft, 0, range.count * sizeof(float));
     memset(pRight, 0, range.count * sizeof(float));
 
-    CoreSampler *next = nextCoreSampler;
-    if (next != sampler) {
-
-        // We're done with the previous sampler.
-        if (sampler) {
-            sampler->done = true;
-        }
-
-        sampler = next;
-    }
+    sampler.update();
 
     // process in chunks of maximum length CORESAMPLER_CHUNKSIZE
     for (int frameIndex = 0; frameIndex < range.count; frameIndex += CORESAMPLER_CHUNKSIZE) {
