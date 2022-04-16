@@ -73,6 +73,7 @@ class SamplerTests: XCTestCase {
         sampler.update(data: data2)
 
         sleep(1)
+        sampler.masterVolume = 0.2
         sampler.play(noteNumber: 64, velocity: 127)
         sleep(1)
     }
