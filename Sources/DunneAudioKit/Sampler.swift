@@ -422,8 +422,8 @@ public class Sampler: Node {
         update(data: SamplerData(sfzURL: sfzURL))
     }
 
-    public func loadSFZ(sfzURL: URL) {
-        update(data: SamplerData(sfzURL: sfzURL))
+    public func loadSFZ(url: URL) {
+        update(data: SamplerData(sfzURL: url))
     }
 
     public func update(data: SamplerData) {
