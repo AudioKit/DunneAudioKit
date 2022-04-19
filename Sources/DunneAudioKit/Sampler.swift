@@ -417,6 +417,15 @@ public class Sampler: Node {
         setupParameters()
     }
 
+    public init(sfzURL: URL) {
+        setupParameters()
+        update(data: SamplerData(sfzURL: sfzURL))
+    }
+
+    public func loadSFZ(sfzURL: URL) {
+        update(data: SamplerData(sfzURL: sfzURL))
+    }
+
     public func update(data: SamplerData) {
         akSamplerUpdateCoreSampler(au.dsp, data.coreSamplerRef)
     }
