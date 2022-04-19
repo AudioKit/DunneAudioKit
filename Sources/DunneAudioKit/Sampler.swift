@@ -417,14 +417,60 @@ public class Sampler: Node {
         setupParameters()
     }
 
+    public init(sfzURL: URL) {
+        setupParameters()
+        update(data: SamplerData(sfzURL: sfzURL))
+    }
+
+    public func loadSFZ(sfzURL: URL) {
+        update(data: SamplerData(sfzURL: sfzURL))
+    }
+
+    public func update(data: SamplerData) {
+        akSamplerUpdateCoreSampler(au.dsp, data.coreSamplerRef)
+    }
+
+    /// Play the sampler
+    /// - Parameters:
+    ///   - noteNumber: MIDI Note Number
+    ///   - velocity: Velocity of the note
+    ///   - channel: MIDI Channel
+    public func play(noteNumber: MIDINoteNumber,
+                     velocity: MIDIVelocity,
+                     channel: MIDIChannel = 0) {
+        scheduleMIDIEvent(event: MIDIEvent(noteOn: noteNumber, velocity: velocity, channel: channel))
+    }
+
+    /// Stop the sampler playback of a specific note
+    /// - Parameter noteNumber: MIDI Note number
+    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
+        scheduleMIDIEvent(event: MIDIEvent(noteOff: noteNumber, velocity: 0, channel: channel))
+    }
+
+    /// Silence all notes immediately.
+    public func silence() {
+        scheduleMIDIEvent(event: MIDIEvent(controllerChange: 123, value: 127, channel: 0))
+    }
+
+    /// Activate the sustain pedal
+    /// - Parameter pedalDown: Whether the pedal is down (activated)
+    public func sustainPedal(pedalDown: Bool) {
+        scheduleMIDIEvent(event: MIDIEvent(controllerChange: 64, value: pedalDown ? 127 : 0, channel: 0))
+    }
+
+}
+
+public struct SamplerData {
+
+    var coreSamplerRef = akCoreSamplerCreate()
+
     /// Initialize this sampler node for one file. There are many parameters, change them after initialization
     ///
     /// - Parameters:
     ///   - sampleDescriptor: File describing how the audio file should be used
     ///   - file: Audio file to use for sample
-    public convenience init(sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
-        self.init()
-        self.loadAudioFile(from: sampleDescriptor, file: file)
+    public init(sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
+        loadAudioFile(from: sampleDescriptor, file: file)
     }
 
     /// A type to hold file with its sample descriptor
@@ -434,20 +480,17 @@ public class Sampler: Node {
     ///
     /// - Parameters:
     ///   - filesWSampleDescriptors: An array of sample descriptors and files
-    public convenience init(filesWithSampleDescriptors: [FileWithSampleDescriptor]) {
-        self.init()
-
+    public init(filesWithSampleDescriptors: [FileWithSampleDescriptor]) {
         for fileWithSampleDescriptor in filesWithSampleDescriptors {
-            self.loadAudioFile(from: fileWithSampleDescriptor.sampleDescriptor, file: fileWithSampleDescriptor.file)
+            loadAudioFile(from: fileWithSampleDescriptor.sampleDescriptor, file: fileWithSampleDescriptor.file)
         }
     }
 
     /// Initialize this sampler node with an SFZ style file. There are many parameters, change them after initialization
     ///
     /// - Parameter sfzURL: URL of the SFZ sound font file
-    public convenience init(sfzURL: URL) {
-        self.init()
-        self.loadSFZ(url: sfzURL)
+    public init(sfzURL: URL) {
+        loadSFZ(url: sfzURL)
     }
 
     /// Initialize this sampler node with SFZ path and file name. There are many parameters, change them after initialization
@@ -455,12 +498,11 @@ public class Sampler: Node {
     /// - Parameters:
     ///   - sfzPath: Path to SFZ file
     ///   - sfzFileName: Name of SFZ file
-    public convenience init(sfzPath: String, sfzFileName: String) {
-        self.init()
-        self.loadSFZ(path: sfzPath, fileName: sfzFileName)
+    public init(sfzPath: String, sfzFileName: String) {
+        loadSFZ(path: sfzPath, fileName: sfzFileName)
     }
 
-    internal func loadAudioFile(from sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
+    public func loadAudioFile(from sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
         let sampleRate = Float(file.fileFormat.sampleRate)
@@ -477,110 +519,58 @@ public class Sampler: Node {
                                                   sampleCount: sampleCount,
                                                   data: data.baseAddress)
 
-            akSamplerLoadData(au.dsp, &descriptor)
+            akCoreSamplerLoadData(coreSamplerRef, &descriptor)
         }
     }
 
-    // Public load function that makes sense on a sample player - simply takes an AVfile and loads that
-    public func loadAudioFile(file: AVAudioFile, rootNote: UInt8 = 48, noteFrequency: Float = 440,
-                              loKey: UInt8 = 0, hiKey: UInt8 = 127, loVelocity: UInt8 = 0, hiVelocity: UInt8 = 127,
-                              startPoint: Float = 0, endPoint: Float? = nil,
-                              loopEnabled: Bool = false, loopStartPoint: Float = 0, loopEndPoint: Float? = nil) {
-        stopAllVoices()
-        let descriptor = SampleDescriptor(noteNumber: Int32(rootNote), noteFrequency: noteFrequency,
-                                          minimumNoteNumber: Int32(loKey), maximumNoteNumber: Int32(hiKey),
-                                          minimumVelocity: Int32(loVelocity), maximumVelocity: Int32(hiVelocity),
+    public func loadAudioFile(file: AVAudioFile,
+                              rootNote: UInt8 = 48,
+                              noteFrequency: Float = 440,
+                              loKey: UInt8 = 0,
+                              hiKey: UInt8 = 127,
+                              loVelocity: UInt8 = 0,
+                              hiVelocity: UInt8 = 127,
+                              startPoint: Float = 0,
+                              endPoint: Float? = nil,
+                              loopEnabled: Bool = false,
+                              loopStartPoint: Float = 0,
+                              loopEndPoint: Float? = nil) {
+        let descriptor = SampleDescriptor(noteNumber: Int32(rootNote),
+                                          noteFrequency: noteFrequency,
+                                          minimumNoteNumber: Int32(loKey),
+                                          maximumNoteNumber: Int32(hiKey),
+                                          minimumVelocity: Int32(loVelocity),
+                                          maximumVelocity: Int32(hiVelocity),
                                           isLooping: loopEnabled,
                                           loopStartPoint: loopStartPoint,
                                           loopEndPoint: loopEndPoint ?? Float(file.length),
                                           startPoint: startPoint,
                                           endPoint: endPoint ?? Float(file.length))
-        unloadAllSamples()
+
         loadAudioFile(from: descriptor, file: file)
-        buildKeyMap()
-        restartVoices()
-    }
-
-    /// Stop all voices
-    public func stopAllVoices() {
-        akSamplerStopAllVoices(au.dsp)
-    }
-
-    /// Restart voices
-    public func restartVoices() {
-        akSamplerRestartVoices(au.dsp)
+        akCoreSamplerBuildKeyMap(coreSamplerRef)
     }
 
     /// Load data from sample descriptor
     /// - Parameter sampleDataDescriptor: Sample descriptor information
     public func loadRawSampleData(from sampleDataDescriptor: SampleDataDescriptor) {
         var copy = sampleDataDescriptor
-        akSamplerLoadData(au.dsp, &copy)
+        akCoreSamplerLoadData(coreSamplerRef, &copy)
     }
 
     /// Load data from compressed file
     /// - Parameter sampleFileDescriptor: Sample descriptor information
     public func loadCompressedSampleFile(from sampleFileDescriptor: SampleFileDescriptor) {
         var copy = sampleFileDescriptor
-        akSamplerLoadCompressedFile(au.dsp, &copy)
+        akCoreSamplerLoadCompressedFile(coreSamplerRef, &copy)
     }
 
-    /// Unload all the samples from memory
-    public func unloadAllSamples() {
-        akSamplerUnloadAllSamples(au.dsp)
-    }
-
-    /// Assign a note number to a particular frequency
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note number
-    ///   - frequency: Frequency in Hertz
-    public func setNoteFrequency(noteNumber: MIDINoteNumber, frequency: AUValue) {
-        akSamplerSetNoteFrequency(au.dsp, Int32(noteNumber), frequency)
-    }
-
-    /// Create a simple key map
-    public func buildSimpleKeyMap() {
-        akSamplerBuildSimpleKeyMap(au.dsp)
-    }
-
-    /// Build key map
     public func buildKeyMap() {
-        akSamplerBuildKeyMap(au.dsp)
+        akCoreSamplerBuildKeyMap(coreSamplerRef)
     }
 
-    /// Set Loop
-    /// - Parameter thruRelease: Wether or not to loop before or after the release
-    public func setLoop(thruRelease: Bool) {
-        akSamplerSetLoopThruRelease(au.dsp, thruRelease)
-    }
-
-    /// Play the sampler
-    /// - Parameters:
-    ///   - noteNumber: MIDI Note Number
-    ///   - velocity: Velocity of the note
-    ///   - channel: MIDI Channel
-    public func play(noteNumber: MIDINoteNumber,
-                     velocity: MIDIVelocity,
-                     channel: MIDIChannel = 0) {
-        akSamplerPlayNote(au.dsp, noteNumber, velocity)
-    }
-
-    /// Stop the sampler playback of a specific note
-    /// - Parameter noteNumber: MIDI Note number
-    public func stop(noteNumber: MIDINoteNumber, channel: MIDIChannel = 0) {
-        akSamplerStopNote(au.dsp, noteNumber, false)
-    }
-
-    /// Stop and immediately silence a note
-    /// - Parameter noteNumber: MIDI note number
-    public func silence(noteNumber: MIDINoteNumber) {
-        akSamplerStopNote(au.dsp, noteNumber, true)
-    }
-
-    /// Activate the sustain pedal
-    /// - Parameter pedalDown: Wether the pedal is down (activated)
-    public func sustainPedal(pedalDown: Bool) {
-        akSamplerSustainPedal(au.dsp, pedalDown)
+    public func buildSimpleKeyMap() {
+        akCoreSamplerBuildSimpleKeyMap(coreSamplerRef)
     }
 
 }

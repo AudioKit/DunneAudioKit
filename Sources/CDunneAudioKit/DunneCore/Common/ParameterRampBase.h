@@ -38,7 +38,7 @@ public:
         return _value;
     }
 
-    void setTarget(float value, bool immediate = false)
+    void setTarget(float value, bool immediate = false) __attribute__((no_sanitize("thread")))
     {
         if (immediate) {
             _startValue = _paramValue = _value = _target = value;
@@ -47,7 +47,7 @@ public:
         }
     }
 
-    float getTarget()
+    float getTarget() __attribute__((no_sanitize("thread")))
     {
         return _target;
     }
