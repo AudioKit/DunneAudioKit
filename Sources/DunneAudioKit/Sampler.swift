@@ -421,9 +421,21 @@ public class Sampler: Node {
         setupParameters()
         update(data: SamplerData(sfzURL: sfzURL))
     }
-
+    
     public func loadSFZ(url: URL) {
         update(data: SamplerData(sfzURL: url))
+    }
+    
+    public func load(avAudioFile: AVAudioFile) {
+        let sd = SampleDescriptor(noteNumber: 64, noteFrequency: 440,
+                                  minimumNoteNumber: 0, maximumNoteNumber: 127,
+                                  minimumVelocity: 0, maximumVelocity: 127,
+                                  isLooping: false, loopStartPoint: 0, loopEndPoint: 0.0,
+                                  startPoint: 0.0,
+                                  endPoint: Float(avAudioFile.length))
+        let data = SamplerData(sampleDescriptor: sd, file: avAudioFile)
+        data.buildKeyMap()
+        update(data: data)
     }
 
     public func update(data: SamplerData) {
@@ -502,6 +514,8 @@ public struct SamplerData {
         loadSFZ(path: sfzPath, fileName: sfzFileName)
     }
 
+    public private(set) var lastDescriptor: SampleDescriptor?
+    
     public func loadAudioFile(from sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
