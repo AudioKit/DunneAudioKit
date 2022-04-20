@@ -37,7 +37,26 @@ class SamplerTests: XCTestCase {
         sampler.stop(noteNumber: 88)
         testMD5(audio)
     }
-
+    
+    func testSamplerAttackVolumeEnvelope() {
+        let engine = AudioEngine()
+        let sampleURL = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav")!
+        let file = try! AVAudioFile(forReading: sampleURL)
+        let sampler = Sampler()
+        sampler.load(avAudioFile: file)
+        sampler.masterVolume = 1
+        engine.output = sampler
+        let audio = engine.startTest(totalDuration: 8.0)
+        audio.append(engine.render(duration: 1.0)) //run test for a second before setting parameters
+        sampler.attackDuration = 1.0
+        sampler.load(avAudioFile: file)
+        audio.append(engine.render(duration: 1.0))//run test to give time to load
+        sampler.play(noteNumber: 65, velocity: 127)
+        audio.append(engine.render(duration: 6.0))
+        sampler.stop(noteNumber: 65)
+        testMD5(audio)
+    }
+    
     /// Run this test with thread sanitizer.
     func testSamplerThreadSafety() {
         let engine = AudioEngine()

@@ -99,6 +99,42 @@ struct SamplerDSP : DSPBase
 
     void updateCoreSampler(CoreSampler* newSampler) {
         newSampler->init(sampleRate);
+        newSampler->setADSRAttackDurationSeconds(sampler->getADSRAttackDurationSeconds());
+        newSampler->setADSRDecayDurationSeconds(sampler->getADSRDecayDurationSeconds());
+        newSampler->setADSRHoldDurationSeconds(sampler->getADSRHoldDurationSeconds());
+        newSampler->setADSRSustainFraction(sampler->getADSRSustainFraction());
+        newSampler->setADSRReleaseHoldDurationSeconds(sampler->getADSRReleaseHoldDurationSeconds());
+        newSampler->setADSRReleaseDurationSeconds(sampler->getADSRReleaseDurationSeconds());
+        
+        newSampler->setFilterAttackDurationSeconds(sampler->getFilterAttackDurationSeconds());
+        newSampler->setFilterDecayDurationSeconds(sampler->getFilterDecayDurationSeconds());
+        newSampler->setFilterSustainFraction(sampler->getFilterSustainFraction());
+        newSampler->setFilterReleaseDurationSeconds(sampler->getFilterReleaseDurationSeconds());
+        
+        newSampler->setPitchAttackDurationSeconds(sampler->getPitchAttackDurationSeconds());
+        newSampler->setPitchDecayDurationSeconds(sampler->getPitchDecayDurationSeconds());
+        newSampler->setPitchSustainFraction(sampler->getPitchSustainFraction());
+        newSampler->setPitchReleaseDurationSeconds(sampler->getPitchReleaseDurationSeconds());
+        newSampler->pitchADSRSemitones = sampler->pitchADSRSemitones;
+        
+        newSampler->pitchOffset = sampler->pitchOffset;
+        newSampler->cutoffEnvelopeStrength = sampler->cutoffEnvelopeStrength;
+        newSampler->cutoffMultiple = sampler->cutoffMultiple;
+        newSampler->filterEnvelopeVelocityScaling = sampler->filterEnvelopeVelocityScaling;
+        newSampler->glideRate = sampler->glideRate;
+        newSampler->isFilterEnabled = sampler->isFilterEnabled;
+        newSampler->isLegato = sampler->isLegato;
+        newSampler->isMonophonic = sampler->isMonophonic;
+        newSampler->keyTracking = sampler->keyTracking;
+        newSampler->linearResonance = sampler->linearResonance;
+        newSampler->masterVolume = sampler->masterVolume;
+        newSampler->portamentoRate = sampler->portamentoRate;
+        newSampler->vibratoDepth = sampler->vibratoDepth;
+        newSampler->vibratoFrequency = sampler->vibratoFrequency;
+        newSampler->voiceVibratoDepth = sampler->voiceVibratoDepth;
+        newSampler->voiceVibratoFrequency = sampler->voiceVibratoFrequency;
+        newSampler->setLoopThruRelease(sampler->loopThruRelease);
+        
         sampler.set(newSampler);
     }
 };
