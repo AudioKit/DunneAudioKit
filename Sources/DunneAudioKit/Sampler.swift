@@ -513,8 +513,6 @@ public struct SamplerData {
     public init(sfzPath: String, sfzFileName: String) {
         loadSFZ(path: sfzPath, fileName: sfzFileName)
     }
-
-    public private(set) var lastDescriptor: SampleDescriptor?
     
     public func loadAudioFile(from sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
