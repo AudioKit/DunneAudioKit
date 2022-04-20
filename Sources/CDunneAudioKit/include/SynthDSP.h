@@ -30,6 +30,7 @@ typedef NS_ENUM(AUParameterAddress, SynthParameter)
     // ensure this is always last in the list, to simplify parameter addressing
     SynthParameterRampDuration,
 };
+
 CF_EXTERN_C_BEGIN
 DSPRef akSynthCreateDSP(void);
 CF_EXTERN_C_END

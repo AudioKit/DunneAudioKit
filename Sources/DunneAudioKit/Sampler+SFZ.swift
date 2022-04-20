@@ -7,7 +7,7 @@ import CDunneAudioKit
 /// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
 /// See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
 
-extension Sampler {
+extension SamplerData {
 
     /// Load an SFZ at the given location
     ///
@@ -25,9 +25,6 @@ extension Sampler {
     ///   - url: File url to the SFZ file
     ///
     public func loadSFZ(url: URL) {
-
-        stopAllVoices()
-        unloadAllSamples()
 
         var lowNoteNumber: MIDINoteNumber = 0
         var highNoteNumber: MIDINoteNumber = 127
@@ -132,6 +129,5 @@ extension Sampler {
         }
 
         buildKeyMap()
-        restartVoices()
     }
 }

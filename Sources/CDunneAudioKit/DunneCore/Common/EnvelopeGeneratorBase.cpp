@@ -76,7 +76,7 @@ namespace DunneCore
         curSegIndex = segIndex;
         if (skipEmptySegments()) {
             SegmentDescriptor& seg = (*segments)[curSegIndex];
-            setupCurSeg(seg.initialValue); // we are restarting, not advancing, so  always start from the first vlaue we get to
+            setupCurSeg(seg.initialValue); // we are restarting, not advancing, so  always start from the first value we get to
         };
     }
 
