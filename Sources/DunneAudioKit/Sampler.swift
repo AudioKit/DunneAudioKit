@@ -427,13 +427,13 @@ public class Sampler: Node {
     }
     
     public func load(avAudioFile: AVAudioFile) {
-        let sd = SampleDescriptor(noteNumber: 64, noteFrequency: 440,
+        let descriptor = SampleDescriptor(noteNumber: 64, noteFrequency: 440,
                                   minimumNoteNumber: 0, maximumNoteNumber: 127,
                                   minimumVelocity: 0, maximumVelocity: 127,
                                   isLooping: false, loopStartPoint: 0, loopEndPoint: 0.0,
                                   startPoint: 0.0,
                                   endPoint: Float(avAudioFile.length))
-        let data = SamplerData(sampleDescriptor: sd, file: avAudioFile)
+        let data = SamplerData(sampleDescriptor: descriptor, file: avAudioFile)
         data.buildKeyMap()
         update(data: data)
     }
