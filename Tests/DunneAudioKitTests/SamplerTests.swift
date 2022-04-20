@@ -47,14 +47,10 @@ class SamplerTests: XCTestCase {
         sampler.masterVolume = 1
         engine.output = sampler
         let audio = engine.startTest(totalDuration: 8.0)
-        audio.append(engine.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0)) //run test for a second before setting parameters
         sampler.attackDuration = 1.0
-        // if you comment out the following load function, the test will pass
-        // i have confirmed via audio.audition() that setting attack above works,
-        // until you load a new sample, and then attack is rest,
-        // even though sampler.attackDuration will report back the value that was set
         sampler.load(avAudioFile: file)
-        audio.append(engine.render(duration: 1.0))
+        audio.append(engine.render(duration: 1.0))//run test to give time to load
         sampler.play(noteNumber: 65, velocity: 127)
         audio.append(engine.render(duration: 6.0))
         sampler.stop(noteNumber: 65)
