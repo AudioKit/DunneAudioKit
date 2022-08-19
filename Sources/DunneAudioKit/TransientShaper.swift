@@ -1,13 +1,12 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import AVFoundation
 import AudioKit
 import AudioKitEX
+import AVFoundation
 import CDunneAudioKit
 
 /// Transient shaper
 public class TransientShaper: Node {
-
     let input: Node
 
     /// Connected nodes
@@ -25,7 +24,8 @@ public class TransientShaper: Node {
         address: akGetParameterAddress("TransientShaperParameterInputAmount"),
         defaultValue: 0.0,
         range: -60.0 ... 30.0,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Input Amount
     @Parameter(inputAmountDef) public var inputAmount: AUValue
@@ -37,7 +37,8 @@ public class TransientShaper: Node {
         address: akGetParameterAddress("TransientShaperParameterAttackAmount"),
         defaultValue: 0.0,
         range: -40.0 ... 40.0,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Attack Amount
     @Parameter(attackAmountDef) public var attackAmount: AUValue
@@ -49,7 +50,8 @@ public class TransientShaper: Node {
         address: akGetParameterAddress("TransientShaperParameterReleaseAmount"),
         defaultValue: 0.0,
         range: -40.0 ... 40.0,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Release Amount
     @Parameter(releaseAmountDef) public var releaseAmount: AUValue
@@ -61,7 +63,8 @@ public class TransientShaper: Node {
         address: akGetParameterAddress("TransientShaperParameterOutputAmount"),
         defaultValue: 0.0,
         range: -60.0 ... 30.0,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Output Amount
     @Parameter(outputAmountDef) public var outputAmount: AUValue
@@ -83,13 +86,12 @@ public class TransientShaper: Node {
         outputAmount: AUValue = outputAmountDef.defaultValue
     ) {
         self.input = input
-       
+
         setupParameters()
-        
+
         self.inputAmount = inputAmount
         self.attackAmount = attackAmount
         self.releaseAmount = releaseAmount
         self.outputAmount = outputAmount
     }
-    
 }

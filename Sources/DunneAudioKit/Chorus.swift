@@ -1,16 +1,15 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import AVFoundation
 import AudioKit
 import AudioKitEX
+import AVFoundation
 import CDunneAudioKit
 
 /// Shane's Chorus
 ///
 public class Chorus: Node {
-
     let input: Node
-    
+
     /// Connected nodes
     public var connections: [Node] { [input] }
 
@@ -18,7 +17,7 @@ public class Chorus: Node {
     public var avAudioNode = instantiate(effect: "chrs")
 
     // MARK: - Parameters
-    
+
     /// Specification details for frequency
     public static let frequencyDef = NodeParameterDef(
         identifier: "frequency",
@@ -26,7 +25,8 @@ public class Chorus: Node {
         address: ModulatedDelayParameter.frequency.rawValue,
         defaultValue: kChorus_DefaultFrequency,
         range: kChorus_MinFrequency ... kChorus_MaxFrequency,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Modulation Frequency (Hz)
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -38,7 +38,8 @@ public class Chorus: Node {
         address: ModulatedDelayParameter.depth.rawValue,
         defaultValue: kChorus_DefaultDepth,
         range: kChorus_MinDepth ... kChorus_MaxDepth,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Modulation Depth (fraction)
     @Parameter(depthDef) public var depth: AUValue
@@ -50,7 +51,8 @@ public class Chorus: Node {
         address: ModulatedDelayParameter.feedback.rawValue,
         defaultValue: kChorus_DefaultFeedback,
         range: kChorus_MinFeedback ... kChorus_MaxFeedback,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Feedback (fraction)
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -62,7 +64,8 @@ public class Chorus: Node {
         address: ModulatedDelayParameter.dryWetMix.rawValue,
         defaultValue: kChorus_DefaultDryWetMix,
         range: kChorus_MinDryWetMix ... kChorus_MaxDryWetMix,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Dry Wet Mix (fraction)
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -86,7 +89,7 @@ public class Chorus: Node {
         dryWetMix: AUValue = dryWetMixDef.defaultValue
     ) {
         self.input = input
-        
+
         setupParameters()
 
         self.frequency = frequency

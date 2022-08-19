@@ -23,7 +23,8 @@ let package = Package(
                 "DunneCore/Sampler/README.md",
                 "DunneCore/README.md",
             ],
-            cxxSettings: [.headerSearchPath("DunneCore/Common")]),
+            cxxSettings: [.headerSearchPath("DunneCore/Common")]
+        ),
         .testTarget(name: "DunneAudioKitTests", dependencies: ["DunneAudioKit"], resources: [.copy("TestResources/")]),
     ],
     cxxLanguageStandard: .cxx14

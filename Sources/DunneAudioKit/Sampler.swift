@@ -1,13 +1,12 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import AVFoundation
 import AudioKit
 import AudioKitEX
+import AVFoundation
 import CDunneAudioKit
 
 /// Sampler
 public class Sampler: Node {
-
     /// Connected nodes
     public var connections: [Node] { [] }
 
@@ -25,7 +24,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterMasterVolume"),
         defaultValue: 1,
         range: 0.0 ... 1,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Master Volume (fraction)
     @Parameter(masterVolumeDef) public var masterVolume: AUValue
@@ -37,7 +37,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterPitchBend"),
         defaultValue: 0.0,
         range: -24 ... 24,
-        unit: .relativeSemiTones)
+        unit: .relativeSemiTones
+    )
 
     /// Pitch offset (semitones)
     @Parameter(pitchBendDef) public var pitchBend: AUValue
@@ -49,7 +50,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterVibratoDepth"),
         defaultValue: 0.0,
         range: 0 ... 12,
-        unit: .relativeSemiTones)
+        unit: .relativeSemiTones
+    )
 
     /// Vibrato amount (semitones)
     @Parameter(vibratoDepthDef) public var vibratoDepth: AUValue
@@ -61,7 +63,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterVibratoFrequency"),
         defaultValue: 5.0,
         range: 0 ... 200,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Vibrato speed (hz)
     @Parameter(vibratoFrequencyDef) public var vibratoFrequency: AUValue
@@ -73,7 +76,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterVoiceVibratoDepth"),
         defaultValue: 0.0,
         range: 0 ... 24,
-        unit: .relativeSemiTones)
+        unit: .relativeSemiTones
+    )
 
     /// Voice Vibrato amount (semitones)
     @Parameter(voiceVibratoDepthDef) public var voiceVibratoDepth: AUValue
@@ -85,7 +89,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterVoiceVibratoFrequency"),
         defaultValue: 5.0,
         range: 0 ... 200,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Voice Vibrato speed (Hz)
     @Parameter(voiceVibratoFrequencyDef) public var voiceVibratoFrequency: AUValue
@@ -97,7 +102,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterFilterCutoff"),
         defaultValue: 4.0,
         range: 1 ... 1000,
-        unit: .rate)
+        unit: .rate
+    )
 
     /// Filter cutoff (harmonic ratio)
     @Parameter(filterCutoffDef) public var filterCutoff: AUValue
@@ -109,7 +115,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterFilterStrength"),
         defaultValue: 20,
         range: 1 ... 1000,
-        unit: .ratio)
+        unit: .ratio
+    )
 
     /// filterStrength
     @Parameter(filterStrengthDef) public var filterStrength: AUValue
@@ -121,7 +128,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterFilterResonance"),
         defaultValue: 0,
         range: -20 ... 20,
-        unit: .decibels)
+        unit: .decibels
+    )
 
     /// Filter resonance (dB)
     @Parameter(filterResonanceDef) public var filterResonance: AUValue
@@ -133,7 +141,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterGlideRate"),
         defaultValue: 0,
         range: 0 ... 20,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Glide rate (seconds per octave)
     @Parameter(glideRateDef) public var glideRate: AUValue
@@ -146,7 +155,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Amplitude attack duration (seconds)
     @Parameter(attackDurationDef) public var attackDuration: AUValue
@@ -159,7 +169,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Amplitude hold duration (seconds)
     @Parameter(holdDurationDef) public var holdDuration: AUValue
@@ -172,7 +183,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Amplitude decay duration (seconds)
     @Parameter(decayDurationDef) public var decayDuration: AUValue
@@ -185,7 +197,8 @@ public class Sampler: Node {
         defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Amplitude sustain level (fraction)
     @Parameter(sustainLevelDef) public var sustainLevel: AUValue
@@ -198,7 +211,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Amplitude release duration (seconds)
     @Parameter(releaseDurationDef) public var releaseDuration: AUValue
@@ -211,7 +225,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Filter Amplitude attack duration (seconds)
     @Parameter(filterAttackDurationDef) public var filterAttackDuration: AUValue
@@ -224,7 +239,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Filter Amplitude decay duration (seconds)
     @Parameter(filterDecayDurationDef) public var filterDecayDuration: AUValue
@@ -237,7 +253,8 @@ public class Sampler: Node {
         defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Filter Amplitude sustain level (fraction)
     @Parameter(filterSustainLevelDef) public var filterSustainLevel: AUValue
@@ -250,7 +267,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Filter Amplitude release duration (seconds)
     @Parameter(filterReleaseDurationDef) public var filterReleaseDuration: AUValue
@@ -263,7 +281,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Pitch Amplitude attack duration (seconds)
     @Parameter(pitchAttackDurationDef) public var pitchAttackDuration: AUValue
@@ -275,7 +294,8 @@ public class Sampler: Node {
         address: akGetParameterAddress("SamplerParameterPitchDecayDuration"),
         defaultValue: 0,
         range: 0 ... 10,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Pitch Amplitude decay duration (seconds)
     @Parameter(pitchDecayDurationDef) public var pitchDecayDuration: AUValue
@@ -288,7 +308,8 @@ public class Sampler: Node {
         defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Pitch Amplitude sustain level (fraction)
     @Parameter(pitchSustainLevelDef) public var pitchSustainLevel: AUValue
@@ -301,7 +322,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 10,
         unit: .seconds,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// Pitch Amplitude release duration (seconds)
     @Parameter(pitchReleaseDurationDef) public var pitchReleaseDuration: AUValue
@@ -314,11 +336,12 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 12,
         unit: .seconds,
-        flags: nonRampFlags)
-    
+        flags: nonRampFlags
+    )
+
     /// Pitch EG Amount duration (semitones)
     @Parameter(pitchADSRSemitonesDef) public var pitchADSRSemitones: AUValue
-    
+
     /// Specification details for restartVoiceLFO
     public static let restartVoiceLFODef = NodeParameterDef(
         identifier: "restartVoiceLFO",
@@ -327,8 +350,9 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 1,
         unit: .boolean,
-        flags: nonRampFlags)
-    
+        flags: nonRampFlags
+    )
+
     /// Voice LFO restart (boolean, 0.0 for false or 1.0 for true) - resets the phase of each voice lfo on keydown
     @Parameter(restartVoiceLFODef) public var restartVoiceLFO: AUValue
 
@@ -340,11 +364,12 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 1,
         unit: .boolean,
-        flags: nonRampFlags)
-    
+        flags: nonRampFlags
+    )
+
     /// Enale Filter Flag
     @Parameter(filterEnableDef) public var filterEnable: AUValue
-    
+
     /// Specification details for loopThruRelease
     public static let loopThruReleaseDef = NodeParameterDef(
         identifier: "loopThruRelease",
@@ -353,8 +378,9 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 1,
         unit: .boolean,
-        flags: nonRampFlags)
-    
+        flags: nonRampFlags
+    )
+
     /// Loop Thru Release (boolean, 0.0 for false or 1.0 for true)
     @Parameter(loopThruReleaseDef) public var loopThruRelease: AUValue
 
@@ -366,7 +392,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 1,
         unit: .boolean,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// isMonophonic (boolean, 0.0 for false or 1.0 for true)
     @Parameter(isMonophonicDef) public var isMonophonic: AUValue
@@ -379,7 +406,8 @@ public class Sampler: Node {
         defaultValue: 0,
         range: 0 ... 1,
         unit: .generic,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// isLegato (boolean, 0.0 for false or 1.0 for true)
     @Parameter(isLegatoDef) public var isLegato: AUValue
@@ -392,7 +420,8 @@ public class Sampler: Node {
         defaultValue: 1,
         range: -2 ... 2,
         unit: .generic,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// keyTrackingFraction (-2.0 to +2.0, normal range 0.0 to 1.0)
     @Parameter(keyTrackingFractionDef) public var keyTrackingFraction: AUValue
@@ -405,7 +434,8 @@ public class Sampler: Node {
         defaultValue: 1,
         range: 0 ... 1,
         unit: .generic,
-        flags: nonRampFlags)
+        flags: nonRampFlags
+    )
 
     /// filterEnvelopeVelocityScaling (fraction 0.0 to 1.0)
     @Parameter(filterEnvelopeVelocityScalingDef) public var filterEnvelopeVelocityScaling: AUValue
@@ -421,18 +451,18 @@ public class Sampler: Node {
         setupParameters()
         update(data: SamplerData(sfzURL: sfzURL))
     }
-    
+
     public func loadSFZ(url: URL) {
         update(data: SamplerData(sfzURL: url))
     }
-    
+
     public func load(avAudioFile: AVAudioFile) {
         let descriptor = SampleDescriptor(noteNumber: 64, noteFrequency: 440,
-                                  minimumNoteNumber: 0, maximumNoteNumber: 127,
-                                  minimumVelocity: 0, maximumVelocity: 127,
-                                  isLooping: false, loopStartPoint: 0, loopEndPoint: 0.0,
-                                  startPoint: 0.0,
-                                  endPoint: Float(avAudioFile.length))
+                                          minimumNoteNumber: 0, maximumNoteNumber: 127,
+                                          minimumVelocity: 0, maximumVelocity: 127,
+                                          isLooping: false, loopStartPoint: 0, loopEndPoint: 0.0,
+                                          startPoint: 0.0,
+                                          endPoint: Float(avAudioFile.length))
         let data = SamplerData(sampleDescriptor: descriptor, file: avAudioFile)
         data.buildKeyMap()
         update(data: data)
@@ -449,7 +479,8 @@ public class Sampler: Node {
     ///   - channel: MIDI Channel
     public func play(noteNumber: MIDINoteNumber,
                      velocity: MIDIVelocity,
-                     channel: MIDIChannel = 0) {
+                     channel: MIDIChannel = 0)
+    {
         scheduleMIDIEvent(event: MIDIEvent(noteOn: noteNumber, velocity: velocity, channel: channel))
     }
 
@@ -469,11 +500,9 @@ public class Sampler: Node {
     public func sustainPedal(pedalDown: Bool) {
         scheduleMIDIEvent(event: MIDIEvent(controllerChange: 64, value: pedalDown ? 127 : 0, channel: 0))
     }
-
 }
 
 public struct SamplerData {
-
     var coreSamplerRef = akCoreSamplerCreate()
 
     /// Initialize this sampler node for one file. There are many parameters, change them after initialization
@@ -513,7 +542,7 @@ public struct SamplerData {
     public init(sfzPath: String, sfzFileName: String) {
         loadSFZ(path: sfzPath, fileName: sfzFileName)
     }
-    
+
     public func loadAudioFile(from sampleDescriptor: SampleDescriptor, file: AVAudioFile) {
         guard let floatChannelData = file.toFloatChannelData() else { return }
 
@@ -546,7 +575,8 @@ public struct SamplerData {
                               endPoint: Float? = nil,
                               loopEnabled: Bool = false,
                               loopStartPoint: Float = 0,
-                              loopEndPoint: Float? = nil) {
+                              loopEndPoint: Float? = nil)
+    {
         let descriptor = SampleDescriptor(noteNumber: Int32(rootNote),
                                           noteFrequency: noteFrequency,
                                           minimumNoteNumber: Int32(loKey),
@@ -584,5 +614,4 @@ public struct SamplerData {
     public func buildSimpleKeyMap() {
         akCoreSamplerBuildSimpleKeyMap(coreSamplerRef)
     }
-
 }

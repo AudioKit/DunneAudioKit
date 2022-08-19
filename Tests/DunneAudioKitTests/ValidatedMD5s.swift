@@ -4,7 +4,7 @@ import XCTest
 extension XCTestCase {
     func testMD5(_ buffer: AVAudioPCMBuffer) {
         let localMD5 = buffer.md5
-        let name = self.description
+        let name = description
         XCTAssertFalse(buffer.isSilent)
         XCTAssert(validatedMD5s[name] == buffer.md5, "\nFAILEDMD5 \"\(name)\": \"\(localMD5)\",")
     }
@@ -21,5 +21,4 @@ let validatedMD5s: [String: String] = [
     "-[TransientShaperTests testOutputAmount]": "e84963aeedd6268dd648dd6a862fb76a",
     "-[TransientShaperTests testplayerAmount]": "f70c4ba579921129c86b9a6abb0cb52e",
     "-[TransientShaperTests testReleaseAmount]": "accb7a919f3c63e4dbec41c0e7ef88db",
-
 ]

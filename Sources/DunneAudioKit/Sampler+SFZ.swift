@@ -1,14 +1,13 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import AVFoundation
 import AudioKit
+import AVFoundation
 import CDunneAudioKit
 
 /// Super-naive code to read a .sfz file, as produced by vonRed's free ESX24-to-SFZ program
 /// See https://bitbucket.org/vonred/exstosfz/downloads/ (you'll need Python 3 to run it).
 
 extension SamplerData {
-
     /// Load an SFZ at the given location
     ///
     /// Parameters:
@@ -25,14 +24,13 @@ extension SamplerData {
     ///   - url: File url to the SFZ file
     ///
     public func loadSFZ(url: URL) {
-
         var lowNoteNumber: MIDINoteNumber = 0
         var highNoteNumber: MIDINoteNumber = 127
         var noteNumber: MIDINoteNumber = 60
         var lowVelocity: MIDIVelocity = 0
         var highVelocity: MIDIVelocity = 127
-        var sample: String = ""
-        var loopMode: String = ""
+        var sample = ""
+        var loopMode = ""
         var loopStartPoint: Float32 = 0
         var loopEndPoint: Float32 = 0
 
@@ -87,23 +85,23 @@ extension SamplerData {
                     Log("\(noteLog) vel \(lowVelocity)-\(highVelocity) \(sample)")
 
                     let sampleDescriptor = SampleDescriptor(noteNumber: Int32(noteNumber),
-                                                              noteFrequency: noteFrequency,
-                                                              minimumNoteNumber: Int32(lowNoteNumber),
-                                                              maximumNoteNumber: Int32(highNoteNumber),
-                                                              minimumVelocity: Int32(lowVelocity),
-                                                              maximumVelocity: Int32(highVelocity),
-                                                              isLooping: loopMode != "",
-                                                              loopStartPoint: loopStartPoint,
-                                                              loopEndPoint: loopEndPoint,
-                                                              startPoint: 0.0,
-                                                              endPoint: 0.0)
+                                                            noteFrequency: noteFrequency,
+                                                            minimumNoteNumber: Int32(lowNoteNumber),
+                                                            maximumNoteNumber: Int32(highNoteNumber),
+                                                            minimumVelocity: Int32(lowVelocity),
+                                                            maximumVelocity: Int32(highVelocity),
+                                                            isLooping: loopMode != "",
+                                                            loopStartPoint: loopStartPoint,
+                                                            loopEndPoint: loopEndPoint,
+                                                            startPoint: 0.0,
+                                                            endPoint: 0.0)
                     sample = sample.replacingOccurrences(of: "\\", with: "/")
                     let sampleFileURL = samplesBaseURL
                         .appendingPathComponent(sample)
                     if sample.hasSuffix(".wv") {
                         sampleFileURL.path.withCString { path in
                             loadCompressedSampleFile(from: SampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                                  path: path))
+                                                                                path: path))
                         }
                     } else {
                         if sample.hasSuffix(".aif") || sample.hasSuffix(".wav") {
@@ -114,7 +112,7 @@ extension SamplerData {
                                 compressedFileURL.path.withCString { path in
                                     loadCompressedSampleFile(
                                         from: SampleFileDescriptor(sampleDescriptor: sampleDescriptor,
-                                                                     path: path))
+                                                                   path: path))
                                 }
                             } else {
                                 let sampleFile = try AVAudioFile(forReading: sampleFileURL)

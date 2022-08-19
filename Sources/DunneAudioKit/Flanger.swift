@@ -1,14 +1,13 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import AVFoundation
 import AudioKit
 import AudioKitEX
+import AVFoundation
 import CDunneAudioKit
 
 /// Stereo Flanger
 ///
 public class Flanger: Node {
-
     let input: Node
 
     /// Connected nodes
@@ -26,7 +25,8 @@ public class Flanger: Node {
         address: ModulatedDelayParameter.frequency.rawValue,
         defaultValue: kFlanger_DefaultFrequency,
         range: kFlanger_MinFrequency ... kFlanger_MaxFrequency,
-        unit: .hertz)
+        unit: .hertz
+    )
 
     /// Modulation Frequency (Hz)
     @Parameter(frequencyDef) public var frequency: AUValue
@@ -38,7 +38,8 @@ public class Flanger: Node {
         address: ModulatedDelayParameter.depth.rawValue,
         defaultValue: kFlanger_DefaultDepth,
         range: kFlanger_MinDepth ... kFlanger_MaxDepth,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Modulation Depth (fraction)
     @Parameter(depthDef) public var depth: AUValue
@@ -50,7 +51,8 @@ public class Flanger: Node {
         address: ModulatedDelayParameter.feedback.rawValue,
         defaultValue: kFlanger_DefaultFeedback,
         range: kFlanger_MinFeedback ... kFlanger_MaxFeedback,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Feedback (fraction)
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -62,7 +64,8 @@ public class Flanger: Node {
         address: ModulatedDelayParameter.dryWetMix.rawValue,
         defaultValue: kFlanger_DefaultDryWetMix,
         range: kFlanger_MinDryWetMix ... kFlanger_MaxDryWetMix,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Dry Wet Mix (fraction)
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -86,7 +89,7 @@ public class Flanger: Node {
         dryWetMix: AUValue = dryWetMixDef.defaultValue
     ) {
         self.input = input
-        
+
         setupParameters()
 
         self.frequency = frequency

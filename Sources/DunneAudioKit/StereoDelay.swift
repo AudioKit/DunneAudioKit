@@ -1,8 +1,8 @@
 // Copyright AudioKit. All Rights Reserved.
 
-import AVFoundation
 import AudioKit
 import AudioKitEX
+import AVFoundation
 import CDunneAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
@@ -25,7 +25,8 @@ public class StereoDelay: Node {
         address: akGetParameterAddress("StereoDelayParameterTime"),
         defaultValue: 0,
         range: 0 ... 2.0,
-        unit: .seconds)
+        unit: .seconds
+    )
 
     /// Delay time (in seconds) This value must not exceed the maximum delay time.
     @Parameter(timeDef) public var time: AUValue
@@ -37,7 +38,8 @@ public class StereoDelay: Node {
         address: akGetParameterAddress("StereoDelayParameterFeedback"),
         defaultValue: 0,
         range: 0.0 ... 1.0,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Feedback amount. Should be a value between 0-1.
     @Parameter(feedbackDef) public var feedback: AUValue
@@ -49,7 +51,8 @@ public class StereoDelay: Node {
         address: akGetParameterAddress("StereoDelayParameterDryWetMix"),
         defaultValue: 0.5,
         range: 0.0 ... 1.0,
-        unit: .generic)
+        unit: .generic
+    )
 
     /// Dry/wet mix. Should be a value between 0-1.
     @Parameter(dryWetMixDef) public var dryWetMix: AUValue
@@ -60,9 +63,10 @@ public class StereoDelay: Node {
         name: "Ping-Pong Mode",
         address: akGetParameterAddress("StereoDelayParameterPingPong"),
         defaultValue: 0,
-        range: 0.0...1.0,
+        range: 0.0 ... 1.0,
         unit: .boolean,
-        flags: [.flag_IsReadable, .flag_IsWritable])
+        flags: [.flag_IsReadable, .flag_IsWritable]
+    )
 
     /// Ping-pong mode: true or false (stereo mode)
     @Parameter(pingPongDef) public var pingPong: AUValue
@@ -85,12 +89,12 @@ public class StereoDelay: Node {
         feedback: AUValue = feedbackDef.defaultValue,
         dryWetMix: AUValue = dryWetMixDef.defaultValue,
         pingPong: Bool = (dryWetMixDef.defaultValue == 1.0),
-        maximumDelayTime: AUValue = 2.0
+        maximumDelayTime _: AUValue = 2.0
     ) {
         self.input = input
-        
+
         setupParameters()
-        
+
         self.time = time
         self.feedback = feedback
         self.dryWetMix = dryWetMix
