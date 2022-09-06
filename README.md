@@ -5,7 +5,8 @@
 
 [![Build Status](https://github.com/AudioKit/DunneAudioKit/workflows/CI/badge.svg)](https://github.com/AudioKit/DunneAudioKit/actions?query=workflow%3ACI)
 [![License](https://img.shields.io/github/license/AudioKit/DunneAudioKit)](https://github.com/AudioKit/DunneAudioKit/blob/main/LICENSE)
-[![Platform](https://img.shields.io/cocoapods/p/AudioKit)](https://github.com/AudioKit/AudioKit/)
+[![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FAudioKit%2FDunneAudioKit%2Fbadge%3Ftype%3Dswift-versions&label=)](https://swiftpackageindex.com/AudioKit/DunneAudioKit)
+[![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FAudioKit%2FDunneAudioKit%2Fbadge%3Ftype%3Dplatforms&label=)](https://swiftpackageindex.com/AudioKit/DunneAudioKit)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 [![Twitter Follow](https://img.shields.io/twitter/follow/AudioKitPro.svg?style=social)](https://twitter.com/AudioKitPro)
 
