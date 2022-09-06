@@ -1,5 +1,6 @@
 // Copyright AudioKit. All Rights Reserved.
 
+#if !os(tvOS)
 import AudioKit
 import AVFoundation
 import CDunneAudioKit
@@ -114,3 +115,4 @@ class SamplerTests: XCTestCase {
         XCTAssertEqual(sampler.voiceVibratoFrequency, voiceVibratoFreq)
     }
 }
+#endif

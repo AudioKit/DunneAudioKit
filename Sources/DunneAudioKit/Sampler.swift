@@ -472,6 +472,7 @@ public class Sampler: Node {
         akSamplerUpdateCoreSampler(au.dsp, data.coreSamplerRef)
     }
 
+    #if !os(tvOS)
     /// Play the sampler
     /// - Parameters:
     ///   - noteNumber: MIDI Note Number
@@ -500,6 +501,7 @@ public class Sampler: Node {
     public func sustainPedal(pedalDown: Bool) {
         scheduleMIDIEvent(event: MIDIEvent(controllerChange: 64, value: pedalDown ? 127 : 0, channel: 0))
     }
+    #endif
 }
 
 public struct SamplerData {
