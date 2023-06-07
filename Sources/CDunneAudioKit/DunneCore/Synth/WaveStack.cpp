@@ -2,6 +2,7 @@
 
 #include "WaveStack.h"
 #include "kiss_fftr.h"
+#include <cassert>
 
 namespace DunneCore
 {

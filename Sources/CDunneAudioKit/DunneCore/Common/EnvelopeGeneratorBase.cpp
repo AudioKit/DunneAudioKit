@@ -2,6 +2,7 @@
 
 #include "EnvelopeGeneratorBase.h"
 #include <cmath>
+#include <cassert>
 
 namespace DunneCore
 {
