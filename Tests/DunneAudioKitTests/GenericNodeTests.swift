@@ -55,7 +55,7 @@ class GenericNodeTests: XCTestCase {
     }
 
     func testEffects() {
-        nodeParameterTest(md5: "1f023474b6150286e854485f00a0d1b4", factory: { input in Flanger(input) })
+        nodeParameterTest(md5: "b09c41cdef96fb4cfe89c34c5262e9d2", factory: { input in Flanger(input) })
         nodeParameterTest(md5: "2d667d22162edd87d6ae8ec8bfccc77e", factory: { input in StereoDelay(input) })
     }
 }
