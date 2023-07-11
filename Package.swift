@@ -9,8 +9,8 @@ let package = Package(
     products: [.library(name: "DunneAudioKit", targets: ["DunneAudioKit"])],
     dependencies: [
         .package(url: "https://github.com/AudioKit/KissFFT", from: "1.0.0"),
-        .package(url: "https://github.com/AudioKit/AudioKit", from: "5.5.0"),
-        .package(url: "https://github.com/AudioKit/AudioKitEX", from: "5.5.0"),
+        .package(url: "https://github.com/AudioKit/AudioKit", from: "5.6.0"),
+        .package(url: "https://github.com/AudioKit/AudioKitEX", from: "5.6.0"),
     ],
     targets: [
         .target(name: "DunneAudioKit", dependencies: ["AudioKit", "AudioKitEX", "CDunneAudioKit"]),
