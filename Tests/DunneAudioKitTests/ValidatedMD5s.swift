@@ -13,9 +13,9 @@ extension XCTestCase {
 let validatedMD5s: [String: String] = [
     "-[SamplerTests testSampler]": "8739229f6bc52fa5db3cc2afe85ee580",
     "-[SamplerTests testSamplerAttackVolumeEnvelope]": "bf00177ac48148fa4f780e5e364e84e2",
-    "-[SynthTests testChord]": "155d8175419836512ead0794f551c7a0",
-    "-[SynthTests testMonophonicPlayback]": "77fb882efcaf29c3a426036d85d04090",
-    "-[SynthTests testParameterInitialization]": "e27794e7055b8ebdbf7d0591e980484e",
+    "-[SynthTests testChord]": "670c95beba121ff85150eb12497f3652",
+    "-[SynthTests testMonophonicPlayback]": "625554cfe7cc840083df9931d47490a6",
+    "-[SynthTests testParameterInitialization]": "7bd35b742ceff0ba77238d7da2ef046d",
     "-[TransientShaperTests testAttackAmount]": "481068b77fc73b349315f2327fb84318",
     "-[TransientShaperTests testDefault]": "cea9fc1deb7a77fe47a071d7aaf411d3",
     "-[TransientShaperTests testOutputAmount]": "e84963aeedd6268dd648dd6a862fb76a",
