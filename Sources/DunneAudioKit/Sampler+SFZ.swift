@@ -90,7 +90,7 @@ extension SamplerData {
                                                             maximumNoteNumber: Int32(highNoteNumber),
                                                             minimumVelocity: Int32(lowVelocity),
                                                             maximumVelocity: Int32(highVelocity),
-                                                            isLooping: loopMode != "",
+                                                            isLooping: loopMode != "no_loop",
                                                             loopStartPoint: loopStartPoint,
                                                             loopEndPoint: loopEndPoint,
                                                             startPoint: 0.0,
