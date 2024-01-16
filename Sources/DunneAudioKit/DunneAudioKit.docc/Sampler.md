@@ -1,4 +1,4 @@
-# Sampler
+# ``DunneAudioKit/Sampler``
 @Metadata {
     @DocumentationExtension(mergeBehavior:append) 
 }
