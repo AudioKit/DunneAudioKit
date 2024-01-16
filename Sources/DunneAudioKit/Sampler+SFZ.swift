@@ -30,7 +30,7 @@ extension SamplerData {
         var lowVelocity: MIDIVelocity = 0
         var highVelocity: MIDIVelocity = 127
         var sample = ""
-        var loopMode = ""
+        var loopMode = "no_loop"
         var loopStartPoint: Float32 = 0
         var loopEndPoint: Float32 = 0
 
@@ -90,7 +90,7 @@ extension SamplerData {
                                                             maximumNoteNumber: Int32(highNoteNumber),
                                                             minimumVelocity: Int32(lowVelocity),
                                                             maximumVelocity: Int32(highVelocity),
-                                                            isLooping: loopMode != "",
+                                                            isLooping: loopMode != "no_loop",
                                                             loopStartPoint: loopStartPoint,
                                                             loopEndPoint: loopEndPoint,
                                                             startPoint: 0.0,
