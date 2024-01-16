@@ -9,7 +9,7 @@ Preparing sets of samples for **Sampler** involves four steps:
 
 This document describes the process of preparing a set of demonstration samples, starting with the sample files included with [ROMPlayer](https://github.com/AudioKit/ROMPlayer).
 
-You can download the finished product from [this link](http://audiokit.io/downloads/ROMPlayerInstruments.zip).
+You can download the finished SFZ and samples from [this link](https://github.com/AudioKit/ROMPlayer/tree/master/RomPlayer/Sounds/sfz).
 
 ## Preparing/acquiring sample files
 The demo samples were recorded and prepared by Matthew Fecher from a Yamaha TX81z hardware FM synthesizer module, using commercial sampling software called [SampleRobot](http://www.samplerobot.com). If you have *MainStage 3* on the Mac, you can use its excellent *autosampler* function instead.
@@ -52,35 +52,26 @@ for aif in os.listdir('.'):
 ```
 
 ## Creating a SFZ metadata file
-Mapping of MIDI (note-number, velocity) pairs to sample files requires additional data, for which **Sampler** uses a simple subset of the [SFZ format](https://en.wikipedia.org/wiki/SFZ_(file_format)). SFZ is essentially a text-based, open-standard alternative to the proprietary [SoundFont](https://en.wikipedia.org/wiki/SoundFont) format.
+Mapping of MIDI (note-number, velocity) pairs to sample files requires additional data, for which **Sampler** uses a simple subset of the [SFZ format](https://en.wikipedia.org/wiki/SFZ_(file_format)) declared at https://sfzformat.com/headers/. SFZ is essentially a text-based, open-standard alternative to the proprietary [SoundFont](https://en.wikipedia.org/wiki/SoundFont) format.
 
 In addition to key-mapping, SFZ files can also contain other important metadata such as loop-start and -end points for each sample file.
 
-The full SFZ standard is very rich, but at the time of writing, **Sampler**'s SFZ import capability is limited to key mapping and loop metadata only.
+The full SFZ standard is very rich, but at the time of writing, **Sampler**'s SFZ import capability is limited to key mapping and loop metadata only. The import capability also is strict about the order of the opcodes: check the sourcecode of `Sampler+SFZ.swift` and place your `sample=YOURSAMPLENAME.YOURFILEFORMAT` as the last element in the `<region>` line, otherwise the samples will not load.
 
-
-### How the demo SFZ files were made
-Matt originally provided `.esx` metadata files for use by Apple's ESX24 Sampler plugin included with Logic Pro X. These files use a proprietary binary format and are notoriously difficult to work with.
-
-Fortunately, KVR user [vonRed](https://www.kvraudio.com/forum/memberlist.php?mode=viewprofile&u=134002) has provided a free tool called [esxtosfz.py](https://www.kvraudio.com/forum/viewtopic.php?t=399035), which does a reasonable job of reading `.esx` files and outputting equivalent `.sfz` files. *Note this tool is written in Python 3, which is not installed by default on Macs, but is [available here](https://www.python.org/downloads/mac-osx/).*
-
-The following Python 2 script will convert all `.esx` files in a folder to `.sfz` format:
-
-```python
-import os, subprocess
-
-for exs in os.listdir('.'):
-  if os.path.isfile(exs) and exs.endswith('.exs'):
-    print 'converting', exs
-    sfz = exs[:-4] + '.sfz'
-    subprocess.call(['/usr/local/bin/python3', '/Users/shane/exs2sfz.py', exs, sfz, 'samples'])
-    #os.remove(exs)
-```
-
-## Other methods to create SFZ files
 Since SFZ files are simply plain-text files, you can use an ordinary text editor to create them.
 
+
+## Other methods to create SFZ files
+
+In [Software > Tools](https://sfzformat.com/software/tools/) of sfzformat.com you'll find some more tools to work with SFZ files. 
+
+Ath the moment of this writing (January 2024) there is a freeware called EXS2SFZ by bjoernbojahr that does a good job in coverting EXS files. They will not be directly usable by **Sampler** but are a good starting point to edit the SFZ files manually. The resulting SFZ have opcodes in group that **Sampler** wants in region and the other way round as well as they don't follow the strict order needed by **Sampler**.  
+
 At the other end of the scale, a company called Chicken Systems sells a very powerful tool called [Translator](http://www.chickensys.com/products2/translator/), which can convert both sample and metadata to and from a huge list of professional formats, including ESX24 (Apple), SoundFont (SF2 and SFZ), Kontakt 5 (Native Instruments), and many more. The full version costs $149 (USD), but if you're only interested in converting to SFZ, you can buy the "Special Edition" for just $79.
+
+### How the demo SFZ files were made back in 2018
+Matt originally provided `.esx` metadata files for use by Apple's ESX24 Sampler plugin included with Logic Pro X. These files use a proprietary binary format and are notoriously difficult to work with. There used to be a Python script by KVR user vonRed called `esxtosfz.py`but this is no longer maintained and only works with older EXS-Files. You may find this archived Mercurial repository of [exstosfz.py](https://bitbucket-archive.softwareheritage.org/projects/la/larromba/exstosfz.html) as reference.    
+
 
 ## Scripts for MainStage 3 Autosampler
 The autosampler built into Apple's *MainStage 3* produces AIFF-C audio files and an EXS24 metadata file, in a newer format than vonRed's `esxtosfz.py` script can handle. However, all the necessary details are actually encoded right in the `.aif` sample files. The following Python script uses a simplistic parsing technique to pull the necessary numbers out of a set of `.aif` files and create a corresponding `.sfz` file:
