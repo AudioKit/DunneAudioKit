@@ -30,8 +30,8 @@ namespace DunneCore
 
     void StereoDelay::setDelayMs(double delayMs)
     {
-        delayLine1.setDelayMs(delayMs);
-        delayLine2.setDelayMs(delayMs);
+        delayLine1.setDelayMs(fmax(1.0, delayMs));
+        delayLine2.setDelayMs(fmax(1.0, delayMs));
     }
 
     void StereoDelay::setFeedback(float fraction)
