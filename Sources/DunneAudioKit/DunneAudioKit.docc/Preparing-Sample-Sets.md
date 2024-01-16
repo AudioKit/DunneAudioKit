@@ -68,7 +68,7 @@ You'll find more details and a simple example in the article <doc:Sampler-SFZ-fi
 
 In [Software > Tools](https://sfzformat.com/software/tools/) of sfzformat.com you'll find some more tools to work with SFZ files. 
 
-Ath the moment of this writing (January 2024) there is a freeware called EXS2SFZ by bjoernbojahr that does a good job in coverting EXS files. They will not be directly usable by ``Sampler`` but are a good starting point to edit the SFZ files manually. The resulting SFZ have opcodes in group that ``Sampler`` wants in region and the other way round as well as they don't follow the strict order needed by ``Sampler``.  
+At the moment of this writing (January 2024) there is a freeware called EXS2SFZ by bjoernbojahr that does a good job in coverting EXS files. They will not be directly usable by ``Sampler`` but are a good starting point to edit the SFZ files manually. The resulting SFZ have opcodes in group that ``Sampler`` wants in region and the other way round as well as they don't follow the strict order needed by ``Sampler``.  
 
 At the other end of the scale, a company called Chicken Systems sells a very powerful tool called [Translator](http://www.chickensys.com/products2/translator/), which can convert both sample and metadata to and from a huge list of professional formats, including EXS24 (Apple), SoundFont (SF2 and SFZ), Kontakt 5 (Native Instruments), and many more. The full version costs $149 (USD), but if you're only interested in converting to SFZ, you can buy the "Special Edition" for just $79.
 
