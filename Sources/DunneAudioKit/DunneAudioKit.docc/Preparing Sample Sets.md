@@ -1,7 +1,8 @@
-# Preparing sample sets for Sampler
+# Sampler sample sets
 
-Preparing sets of samples for **Sampler** involves four steps:
+Preparing sets of samples for **Sampler** involves a few steps and lot of testing. 
 
+We suggest to approach it in four steps:
 1. Preparing (or acquiring) sample files
 2. Compressing sample files
 3. Creating a SFZ metadata file
