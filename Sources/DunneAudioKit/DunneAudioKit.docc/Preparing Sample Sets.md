@@ -67,14 +67,14 @@ In [Software > Tools](https://sfzformat.com/software/tools/) of sfzformat.com yo
 
 Ath the moment of this writing (January 2024) there is a freeware called EXS2SFZ by bjoernbojahr that does a good job in coverting EXS files. They will not be directly usable by **Sampler** but are a good starting point to edit the SFZ files manually. The resulting SFZ have opcodes in group that **Sampler** wants in region and the other way round as well as they don't follow the strict order needed by **Sampler**.  
 
-At the other end of the scale, a company called Chicken Systems sells a very powerful tool called [Translator](http://www.chickensys.com/products2/translator/), which can convert both sample and metadata to and from a huge list of professional formats, including ESX24 (Apple), SoundFont (SF2 and SFZ), Kontakt 5 (Native Instruments), and many more. The full version costs $149 (USD), but if you're only interested in converting to SFZ, you can buy the "Special Edition" for just $79.
+At the other end of the scale, a company called Chicken Systems sells a very powerful tool called [Translator](http://www.chickensys.com/products2/translator/), which can convert both sample and metadata to and from a huge list of professional formats, including EXS24 (Apple), SoundFont (SF2 and SFZ), Kontakt 5 (Native Instruments), and many more. The full version costs $149 (USD), but if you're only interested in converting to SFZ, you can buy the "Special Edition" for just $79.
 
 ### How the demo SFZ files were made back in 2018
-Matt originally provided `.esx` metadata files for use by Apple's ESX24 Sampler plugin included with Logic Pro X. These files use a proprietary binary format and are notoriously difficult to work with. There used to be a Python script by KVR user vonRed called `esxtosfz.py`but this is no longer maintained and only works with older EXS-Files. You may find this archived Mercurial repository of [exstosfz.py](https://bitbucket-archive.softwareheritage.org/projects/la/larromba/exstosfz.html) as reference.    
+Matt originally provided `.exs` metadata files for use by Apple's EXS24 Sampler plugin included with Logic Pro X. These files use a proprietary binary format and are notoriously difficult to work with. There used to be a Python script by KVR user vonRed called `exstosfz.py`but this is no longer maintained and only works with older EXS-Files. You may find this archived Mercurial repository of [exstosfz.py](https://bitbucket-archive.softwareheritage.org/projects/la/larromba/exstosfz.html) as reference.    
 
 
 ## Scripts for MainStage 3 Autosampler
-The autosampler built into Apple's *MainStage 3* produces AIFF-C audio files and an EXS24 metadata file, in a newer format than vonRed's `esxtosfz.py` script can handle. However, all the necessary details are actually encoded right in the `.aif` sample files. The following Python script uses a simplistic parsing technique to pull the necessary numbers out of a set of `.aif` files and create a corresponding `.sfz` file:
+The autosampler built into Apple's *MainStage 3* produces AIFF-C audio files and an EXS24 metadata file, in a newer format than vonRed's `exstosfz.py` script can handle. However, all the necessary details are actually encoded right in the `.aif` sample files. The following Python script uses a simplistic parsing technique to pull the necessary numbers out of a set of `.aif` files and create a corresponding `.sfz` file:
 
 ```python
 import sys, os
