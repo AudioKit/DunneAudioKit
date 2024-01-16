@@ -6,6 +6,7 @@ import AVFoundation
 import CDunneAudioKit
 
 /// Stereo delay-line with stereo (linked dual mono) and ping-pong modes
+/// 
 /// TODO: This node needs tests
 public class StereoDelay: Node {
     let input: Node
