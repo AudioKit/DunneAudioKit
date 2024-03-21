@@ -5,7 +5,7 @@ import AudioKitEX
 import AVFoundation
 import CDunneAudioKit
 
-/// Sampler
+/// Sampler audio generation
 public class Sampler: Node {
     /// Connected nodes
     public var connections: [Node] { [] }
