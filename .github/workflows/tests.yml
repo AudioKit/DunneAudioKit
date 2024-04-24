@@ -10,16 +10,17 @@ on:
 jobs:
   swift_test:
     name: Test
-    uses: AudioKit/ci/.github/workflows/swift_test.yml@main
-    with:
-      scheme: DunneAudioKit
-      platforms: iOS macOS tvOS
-      swift-versions: 5.5 5.6
+    runs-on: macos-latest
+    steps:
+      - name: Check out DunneAudioKit
+        uses: actions/checkout@v4
+      - name: Test DunneAudioKit
+        run: swift test -c release
 
   # Send notification to Discord on failure.
   send_notification:
     name: Send Notification
     uses: AudioKit/ci/.github/workflows/send_notification.yml@main
-    needs: [swift_test]
+    needs: [swift_test, build_demo]
     if: ${{ failure() && github.ref == 'refs/heads/main' }}
     secrets: inherit
