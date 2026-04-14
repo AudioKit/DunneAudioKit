@@ -13,7 +13,7 @@ class SamplerTests: XCTestCase {
         let sampleURL = Bundle.module.url(forResource: "TestResources/12345", withExtension: "wav")!
         let file = try! AVAudioFile(forReading: sampleURL)
         let sampler = Sampler()
-        let data = SamplerData(sampleDescriptor: SampleDescriptor(noteNumber: 64, noteFrequency: 440, minimumNoteNumber: 0, maximumNoteNumber: 127, minimumVelocity: 0, maximumVelocity: 127, isLooping: false, loopStartPoint: 0, loopEndPoint: 1000.0, startPoint: 0.0, endPoint: 44100.0 * 5.0), file: file)
+        let data = SamplerData(sampleDescriptor: SampleDescriptor(noteNumber: 64, noteFrequency: 440, minimumNoteNumber: 0, maximumNoteNumber: 127, minimumVelocity: 0, maximumVelocity: 127, isLooping: false, loopStartPoint: 0, loopEndPoint: 1000.0, startPoint: 0.0, endPoint: Float(Settings.sampleRate * 5.0)), file: file)
         data.buildKeyMap()
         sampler.update(data: data)
         sampler.masterVolume = 0.1
@@ -46,13 +46,13 @@ class SamplerTests: XCTestCase {
         sampler.load(avAudioFile: file)
         sampler.masterVolume = 1
         engine.output = sampler
-        let audio = engine.startTest(totalDuration: 8.0)
+        let audio = engine.startTest(totalDuration: 9.0)
         audio.append(engine.render(duration: 1.0)) // run test for a second before setting parameters
         sampler.attackDuration = 1.0
         sampler.load(avAudioFile: file)
         audio.append(engine.render(duration: 1.0)) // run test to give time to load
         sampler.play(noteNumber: 65, velocity: 127)
-        audio.append(engine.render(duration: 6.0))
+        audio.append(engine.render(duration: 7.0))
         sampler.stop(noteNumber: 65)
         testMD5(audio)
     }
